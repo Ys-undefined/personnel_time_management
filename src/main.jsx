@@ -4,7 +4,7 @@ import 'reset-css'
 
 import './assets/styles/global.scss'
 
-import {App} from './App.jsx'
+import App from './App.jsx'
 
 import {BrowserRouter} from 'react-router-dom'
 
