@@ -1,7 +1,7 @@
 export const DailyReport = () => {
     return (
         <>
-            DailyReport
+            Daily Report
         </>
     )
 }

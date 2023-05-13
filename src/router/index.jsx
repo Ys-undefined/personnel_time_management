@@ -19,6 +19,10 @@ const routes =[
       element: <Navigate to="/home/schedule/spare-time"/>
     },
     {
+      path: "/home/record",
+      element: <Navigate to="/home/record/daily-report" />
+    },
+    {
         path: '/home',
         element:<Home/>,
         children:[
