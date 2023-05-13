@@ -25,10 +25,9 @@ export const Home = () => {
         <>
                 <Layout>
                     <Header className={styles.headerStyle}>
-                        <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" items={items} />
+                        <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" defaultSelectedKeys={["/schedule"]} items={items} />
                     </Header>
                     <Layout className={styles.contentStyle}>
-                        {/*todo 携带侧边栏以及主题的导航*/}
                         <Outlet/>
                     </Layout>
                 </Layout>
