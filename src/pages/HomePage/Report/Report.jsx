@@ -15,12 +15,12 @@ const items=[
     }
 ]
 
-export const Record = () => {
+export const Report = () => {
     const location = useLocation()
     return (
         <>
             <Sider className={styles.siderStyle}>
-                <SideNavi items={items} naviUrl={location.pathname}/>
+                <SideNavi items={items} naviUrl={location.pathname} defaultDisplayKey='/daily-report'/>
             </Sider>
             <Content className={styles.contentStyle}>
                 <Outlet/>
