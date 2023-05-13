@@ -2,7 +2,6 @@ import { Menu } from 'antd';
 import {useEffect, useState} from 'react';
 import PropTypes from 'prop-types'
 import {useNavigate} from 'react-router-dom'
-import styles from './sideNavi.moudule.scss'
 //todo 做更详细的类型限定+使用下面的方法
 // function getItem(label, key, icon, children, type) {
 //     return {key, icon, children, label, type,};
@@ -31,7 +30,6 @@ const SideNavi = (props) => {
     }
     return (
         <Menu
-            className={styles.sider}
             theme={"dark"}
             mode="inline"
             items={items}
