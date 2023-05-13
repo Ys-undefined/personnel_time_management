@@ -27,7 +27,7 @@ export const Home = () => {
                     <Header className={styles.headerStyle}>
                         <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" defaultSelectedKeys={["/schedule"]} items={items} />
                     </Header>
-                    <Layout className={styles.contentStyle}>
+                    <Layout className={styles.contentStyle} >
                         <Outlet/>
                     </Layout>
                 </Layout>

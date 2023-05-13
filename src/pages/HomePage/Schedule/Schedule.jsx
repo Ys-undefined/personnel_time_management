@@ -18,7 +18,7 @@ export const Schedule = () => {
     const location = useLocation()
     return (
         <>
-            <Sider className={styles.siderStyle}>
+            <Sider className={styles.siderStyle} >
                 <SideNavi items={items} naviUrl={location.pathname} defaultDisplayKey="/spare-time"/>
             </Sider>
             <Content className={styles.contentStyle}>
