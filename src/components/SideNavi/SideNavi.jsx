@@ -1,39 +1,49 @@
 import { Menu } from 'antd';
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import PropTypes from 'prop-types'
 import {useNavigate} from 'react-router-dom'
-
-//todo 做更详细的类型限定 使用下面的方法
+import styles from './sideNavi.moudule.scss'
+//todo 做更详细的类型限定+使用下面的方法
 // function getItem(label, key, icon, children, type) {
 //     return {key, icon, children, label, type,};
 // }
 const SideNavi = (props) => {
     const [items] = useState(props.items)
     const [naviUrl] = useState(props.naviUrl)
+    const [current,setCurrent] = useState(items[0].key)
     const navigate = useNavigate()
-
-    function onClick(item){
-        const {key} = item
-        const array = naviUrl.split('/')
+    const [defaultDisplayKey] = useState(props.defaultDisplayKey)
+    useEffect(()=>{
+        navigate(handleNaviUrl(naviUrl)+defaultDisplayKey)
+    },[])
+    function handleNaviUrl(url){
+        const array = url.split('/')
         if (array.length>=4){
             array.pop()
         }
-        const dest = array.join('/')
+        return array.join('/')
+    }
+    function onClick(item){
+        const {key} = item
+        const dest = handleNaviUrl(naviUrl)
         navigate(dest+key)
+        setCurrent(key)
     }
     return (
         <Menu
+            className={styles.sider}
+            theme={"dark"}
             mode="inline"
-            style={{
-                width: 256,
-            }}
             items={items}
             onClick={onClick}
+            selectedKeys={[current]}
+            defaultSelectedKeys={[items[0].key]}
         />
     );
 };
 SideNavi.propTypes={
     items:PropTypes.array.isRequired,
-    naviUrl:PropTypes.string.isRequired
+    naviUrl:PropTypes.string.isRequired,
+    defaultDisplayKey:PropTypes.string.isRequired
 }
 export default SideNavi
