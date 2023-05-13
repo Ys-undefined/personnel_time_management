@@ -23,9 +23,11 @@ export const Home = () => {
     };
     return (
         <>
-                <Layout>
-                    <Header className={styles.headerStyle}>
-                        <Menu onClick={onClick} selectedKeys={[current]} mode="horizontal" defaultSelectedKeys={["/schedule"]} items={items} />
+                <Layout style={{position: "relative"}}>
+                    <Header className={styles.headerStyle} >
+                      <div className={styles.leftStyle}>go run</div>
+                        <Menu className={styles.middleStyle} onClick={onClick} selectedKeys={[current]} mode="horizontal" defaultSelectedKeys={["/schedule"]} items={items} />
+                        <div className={styles.lastStyle}>div</div>
                     </Header>
                     <Layout className={styles.contentStyle} >
                         <Outlet/>

@@ -30,7 +30,8 @@ const SideNavi = (props) => {
     }
     return (
         <Menu
-            theme={"dark"}
+           // theme={"dark"}
+           
             mode="inline"
             items={items}
             onClick={onClick}

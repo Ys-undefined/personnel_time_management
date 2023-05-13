@@ -1,6 +1,6 @@
 import {Layout} from 'antd';
 const {Sider, Content } = Layout;
-import styles from './schedule.module.scss'
+import styles from '../../HomePage/general.module.scss'
 import {Outlet, useLocation} from 'react-router-dom'
 import SideNavi from '../../../components/SideNavi/SideNavi.jsx'
 
