@@ -12,7 +12,7 @@ import {WeeklyReport} from '../pages/HomePage/Report/WeeklyReport/WeeklyReport'
 const routes =[
     {
         path:'',
-        element:<Login/>
+        element:<Login/>,
     },
     {
       path: "/home",

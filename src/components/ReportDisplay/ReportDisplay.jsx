@@ -1,76 +1,66 @@
-import {Layout,Button} from 'antd'
-import {DatePicker,Form} from 'antd'
-import {useEffect, useState} from 'react'
+import {Layout} from 'antd'
 import PropTypes from 'prop-types'
-import {get} from  '../../utils/request.js'
 import styles from './reportDisplay.module.scss'
+import {ReportList} from './ReportList/ReportList'
+import ReportPagination from './ReportPagination/ReportPagination.jsx'
+import ReportHeader from './ReportHeader/ReportHeader.jsx'
+import {useEffect, useState} from 'react'
 const {Header,Footer,Content} = Layout
-const {RangePicker} = DatePicker
-const rangeConfig = {
-    rules: [
-        {
-            type: 'array',
-            required: true,
-            message: 'Please select time!',
-        },
-    ],
-};
 //测试数据
 const reports = [
     {
-        id:'1',
+        key:'1',
         date:"11111111",
-        completed:"xxxxxxxxxxx",
+        completed:"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
         risky:"xxxxxxxxxxxxxxx",
-        isDealy:true,
+        isDelay:false,
     },
     {
-        id:'2',
+        key:'2',
         date:"22222222",
         completed:"xxxxxxxxxxx",
-        risky:"xxxxxxxxxxxxxxx",
-        isDealy:true,
+        risky:"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        isDelay:true,
     },
     {
-        id:'3',
+        key:'3',
         date:"33333333",
         completed:"xxxxxxxxxxx",
         risky:"xxxxxxxxxxxxxxx",
-        isDealy:true,
+        isDelay:true,
     },
 ]
+
 const ReportDisplay= (props)=>{
-    const [type] = useState(props.type)
     // const [url] = useState(props.url)
     // const [reports,setReports] = useState([])
-    useEffect( ()=>{
-        //todo 默认参数（页码,日期）
-        // async function getReports(){
-        //
-        // }
-        // setReports(getReports())
+    const [total,setTotal]=useState(0)
+    useEffect(()=>{
+        //todo 请求所有数据
+        setTotal(20)
     },[])
 
-    const [startDate,setStartDate]=useState("")
-    const [endDate,setEndDate] = useState("")
-
+    function handleGetReports(page,pageSize){
+        console.log(page,pageSize)
+        //todo 请求数据 && setReports
+    }
     return (
         <>
             <Header className={styles.headerStyle}>
-                <Form.Item name="date-range-picker" label="日期范围" {...rangeConfig}>
-                    <RangePicker />
-                </Form.Item>
-                <Form>
-                    <Button type="primary" htmlType="submit">登录</Button>
-                </Form>
+                <ReportHeader type={props.type}></ReportHeader>
             </Header>
-            <Content className={styles.contentStyle}></Content>
-            <Footer className={styles.footerStyle}></Footer>
+            <Content className={styles.contentStyle}>
+                <ReportList reports={reports} type={props.type}></ReportList>
+            </Content>
+            <Footer className={styles.footerStyle}>
+                <ReportPagination total={total} changePage={handleGetReports}></ReportPagination>
+            </Footer>
         </>
     )
 }
-// ReportDisplay.propTypes={
-//     type:PropTypes.string.isRequired,
-//     url:PropTypes.string.isRequired,
-// }
+
+ReportDisplay.propTypes={
+    type:PropTypes.string.isRequired,
+    // url:PropTypes.string.isRequired,
+}
 export default ReportDisplay
