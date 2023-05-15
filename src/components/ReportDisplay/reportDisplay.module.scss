@@ -1,0 +1,25 @@
+.headerStyle{
+  text-align: center;
+  color: #eee;
+  padding-inline: 50px;
+  line-height: 64px;
+  background-color: #ffffff;
+}
+.contentStyle{
+  text-align: center;
+  color: #eee;
+  padding-inline: 50px;
+  min-height: 120px;
+  line-height: 120px;
+  background-color: black;
+  margin-top: 5px;
+}
+.footerStyle{
+  text-align: center;
+  color: #ffffff;
+  background-color: red;
+  bottom: 1%;
+  height: 80px;
+  position: fixed;
+  width: 100%;
+}

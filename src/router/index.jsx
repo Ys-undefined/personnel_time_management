@@ -49,7 +49,7 @@ const routes =[
                         element:<WeeklyReport/>
                     },
                 ]
-            }
+            },
         ]
     }
 ]
