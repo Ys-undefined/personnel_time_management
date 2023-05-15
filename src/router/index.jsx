@@ -2,7 +2,7 @@ import {Login} from '../pages/Login/Login'
 import {Home} from '../pages/HomePage/Home'
 import {Schedule} from '../pages/HomePage/Schedule/Schedule'
 import {SpareTime} from '../pages/HomePage/Schedule/SpareTime/SpareTime'
-import {Record} from '../pages/HomePage/Report/Record'
+import {Report} from '../pages/HomePage/Report/Report.jsx'
 import {ClockIn} from '../pages/HomePage/Schedule/ClockIn/ClockIn'
 import {Navigate} from 'react-router-dom'
 import {DailyReport} from '../pages/HomePage/Report/DailyReport/DailyReport'
@@ -38,7 +38,7 @@ const routes =[
             },
             {
                 path: "/home/record",
-                element:<Record/>,
+                element:<Report/>,
                 children: [
                     {
                         path:'/home/record/daily-report',
