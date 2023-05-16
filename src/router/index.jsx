@@ -15,8 +15,8 @@ const routes =[
         element:<Login/>,
     },
     {
-      path: "/home",
-      element: <Navigate to="/home/schedule/spare-time"/>
+        path: "/home",
+        element: <Navigate to="/home/schedule/spare-time"/>
     },
     {
         path: '/home',

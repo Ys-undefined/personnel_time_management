@@ -8,6 +8,8 @@
     border-style: solid;
     border-color: rgb(205, 204, 204);
     box-shadow: 2px 2px 5px rgba(65, 63, 63, 0.3);
+    display: flex;
+    flex-direction: column;
   };
   .siderStyle{
     text-align: center;
