@@ -1,23 +1,31 @@
 import {useNavigate} from 'react-router-dom'
 import style from './Login.module.scss'
-import { Button,Checkbox,Form,Input } from 'antd'
+import { Button,Checkbox,Form,Input,message } from 'antd'
 import {LockOutlined,UserOutlined} from '@ant-design/icons'
 export const Login = () => {
     //跳转到后台
     const navigate = useNavigate()
     function login(){
+      debugger;
         navigate("/home")
     }
     //该事件是为了收集后台数据
     const onFinish=(values)=>{
-        console.log('Received values of form',values);
+        const {username,password} = values
+        if (username==='123' && password==='456'){
+          message.info('This is a normal message');
+          login();
+        }
+       
     }
     return (
+      <div className={style.login_form}>
         <Form 
+        layout='inline'
         name='normal_login'
-        className={style.login_form}
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
+       
+        labelCol={{ span: 6 }}
+        wrapperCol={{ span:18  }}
         initialValues={{
              remember:true,
          }}
@@ -76,12 +84,13 @@ export const Login = () => {
                     span:16,
                 }
             }>
-             <Button type="primary" htmlType="submit" className="login-form-button" onClick={login}>
+             <Button type="primary" htmlType="submit" className="login-form-button">
                Log in
              </Button>
              Or <a href="">register now!</a>
            </Form.Item>
         </Form>
+        </div>
     )
 }
 export default Login;
