@@ -2,13 +2,11 @@
   text-align: center;
   height: 64px;
   padding-inline: 50px;
-   margin-bottom: 5px;
-  // margin-top: 5px;
+  margin-bottom: 5px;
   line-height: 64px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  //box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   border-width: 2px;
   border-style: solid;
   border-color: rgb(205, 204, 204);
@@ -17,7 +15,7 @@
   
 }
 .leftStyle {
-  padding-left: 20px;
+  padding-left: 10px;
   text-align: center;
   color: black;
   height: 64px;
@@ -33,7 +31,6 @@
   padding: 0;
   line-height: 64px;
   order: 2;
-
 }
 .lastStyle {
   order:3;

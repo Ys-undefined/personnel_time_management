@@ -3,6 +3,8 @@ const {Sider, Content } = Layout;
 import styles from '../../HomePage/general.module.scss'
 import SideNavi from '../../../components/SideNavi/SideNavi.jsx'
 import {Outlet, useLocation} from 'react-router-dom'
+import course_style from '../CourseList/courseList.module.scss'
+import {PlusCircleOutlined} from '@ant-design/icons'
 
 const items=[
     {
@@ -20,6 +22,10 @@ export const Report = () => {
     return (
         <>
             <Sider className={styles.siderStyle} >
+                <div className={course_style.header}>
+                    日报周报
+                    <PlusCircleOutlined className={course_style.icon}/>
+                </div>
                 <SideNavi items={items} naviUrl={location.pathname} defaultDisplayKey='/daily-report'/>
             </Sider>
             <Content className={styles.contentStyle} >
