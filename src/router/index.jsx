@@ -7,8 +7,12 @@ import {ClockIn} from '../pages/HomePage/Schedule/ClockIn/ClockIn'
 import {Navigate} from 'react-router-dom'
 import {DailyReport} from '../pages/HomePage/Report/DailyReport/DailyReport'
 import {WeeklyReport} from '../pages/HomePage/Report/WeeklyReport/WeeklyReport'
-
-
+//分享课程
+import {CourseList} from '../pages/HomePage/CourseList/CourseList.jsx'
+import { BackendCourse} from '../pages/HomePage/CourseList/BackendCourse/BackendCourse'
+import { FrontendCourse} from '../pages/HomePage/CourseList/FrontendCourse/FrontendCourse'
+import { SoftwareSkillCourse} from '../pages/HomePage/CourseList/SoftwareSkillCourse/SoftwareSkillCourse'
+import { TestCourse } from '../pages/HomePage/CourseList/TestCourse/TestCourse'
 const routes =[
     {
         path:'',
@@ -48,6 +52,29 @@ const routes =[
                         path:'/home/record/weekly-report',
                         element:<WeeklyReport/>
                     },
+                ]
+            },
+            {
+                path: "/home/course-list",
+                element: <CourseList/>,
+                children:[
+                    {
+                        path:'/home/course-list/frontend-course',
+                        element: <FrontendCourse/>
+                    },
+                    {
+                        path:'/home/course-list/backend-course',
+                        element: <BackendCourse/>
+                    },
+                    {
+                        path:'/home/course-list/software-skill-course',
+                        element:<SoftwareSkillCourse/>
+                    },
+                    {
+                        path:'/home/course-list/test-course',
+                        element:<TestCourse/>
+                    }
+
                 ]
             },
         ]
