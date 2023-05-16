@@ -4,7 +4,6 @@ import  course_style from './courseList.module.scss'
 import SideNavi from '../../../components/SideNavi/SideNavi'
 import {Outlet, useLocation} from 'react-router-dom'
 const {Sider, Content } = Layout;
-import { Col, Row } from 'antd';
 import {PlusCircleOutlined} from "@ant-design/icons";
 const items=[
     {
@@ -37,8 +36,8 @@ export const CourseList = () => {
                 </div>
                 <SideNavi items={items} naviUrl={location.pathname} defaultDisplayKey="/frontend-course"/>
             </Sider>
-            <Content className={styles.contentStyle} style={{overflow:"scroll"}}>
-                <Outlet />
+            <Content className={styles.contentStyle} rootClassName={"asd"} style={{display:"",overflow:'scroll',height:'93vh'}}>
+                <Outlet  />
             </Content>
         </>
     )
