@@ -7,6 +7,7 @@ import {ClockIn} from '../pages/HomePage/Schedule/ClockIn/ClockIn'
 import {Navigate} from 'react-router-dom'
 import {DailyReport} from '../pages/HomePage/Report/DailyReport/DailyReport'
 import {WeeklyReport} from '../pages/HomePage/Report/WeeklyReport/WeeklyReport'
+import { InforMation } from '../pages/HomePage/Statistics/InforMation/Information'
 
 
 const routes =[
@@ -49,9 +50,14 @@ const routes =[
                         element:<WeeklyReport/>
                     },
                 ]
+            },
+            {
+                path: "/home/information",
+                element:<InforMation/>
             }
         ]
-    }
+    },
+
 ]
 
 export default routes
