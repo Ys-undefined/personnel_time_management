@@ -16,6 +16,7 @@ const items =[
     {
         label:'分享课表',
         key: '/course-list',
+
     }
 ];
 export const Home = () => {
@@ -29,7 +30,7 @@ export const Home = () => {
         <>
                 <Layout>
                     <Header className={styles.headerStyle} >
-                      <div className={styles.leftStyle}>go run</div>
+                      <div className={styles.leftStyle} style={{fontSize:"30px"}}>🧠</div>
                         <Menu className={styles.middleStyle} onClick={onClick} selectedKeys={[current]} mode="horizontal" defaultSelectedKeys={["/schedule"]} items={items} />
                         <div className={styles.lastStyle}>div</div>
                     </Header>

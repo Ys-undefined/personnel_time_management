@@ -4,7 +4,7 @@ import ReportDisplay from '../../../../components/ReportDisplay/ReportDisplay.js
 export const DailyReport = () => {
     return (
         <>
-            <ReportDisplay type="daily"/>
+            <ReportDisplay type="daily" />
         </>
     )
 }
