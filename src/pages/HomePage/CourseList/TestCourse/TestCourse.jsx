@@ -16,6 +16,14 @@ export const TestCourse = () => {
               description:"js课程描述",photoUrl:"https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
               toPopulation:0,logoUrl:"https://xsgames.co/randomusers/avatar.php?g=pixel",
               classification:1,isOnline:1,createTime:"2023/5/15 20:00:20"},
+          {courseName:"js课程",
+              description:"js课程描述",photoUrl:"https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
+              toPopulation:0,logoUrl:"https://xsgames.co/randomusers/avatar.php?g=pixel",
+              classification:1,isOnline:1,createTime:"2023/5/15 20:00:20"},
+          {courseName:"js课程",
+              description:"js课程描述",photoUrl:"https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
+              toPopulation:0,logoUrl:"https://xsgames.co/randomusers/avatar.php?g=pixel",
+              classification:1,isOnline:1,createTime:"2023/5/15 20:00:20"},
       ]);
 
       //发送请求参数，测试课程为2
