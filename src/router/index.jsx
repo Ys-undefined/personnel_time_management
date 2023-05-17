@@ -8,8 +8,12 @@ import {UserInformation} from '../pages/HomePage/Schedule/UserInformation/UserIn
 import {createBrowserRouter, Navigate} from 'react-router-dom'
 import {DailyReport} from '../pages/HomePage/Report/DailyReport/DailyReport'
 import {WeeklyReport} from '../pages/HomePage/Report/WeeklyReport/WeeklyReport'
-
-
+//分享课程
+import {CourseList} from '../pages/HomePage/CourseList/CourseList.jsx'
+import { BackendCourse} from '../pages/HomePage/CourseList/BackendCourse/BackendCourse'
+import { FrontendCourse} from '../pages/HomePage/CourseList/FrontendCourse/FrontendCourse'
+import { SoftwareSkillCourse} from '../pages/HomePage/CourseList/SoftwareSkillCourse/SoftwareSkillCourse'
+import { TestCourse } from '../pages/HomePage/CourseList/TestCourse/TestCourse'
 const routes =[
     {
         path:'',
@@ -17,8 +21,8 @@ const routes =[
         
     },
     {
-      path: "/home",
-      element: <Navigate to="/home/schedule/spare-time"/>
+        path: "/home",
+        element: <Navigate to="/home/schedule/spare-time"/>
     },
     {
         path: '/home',
@@ -55,7 +59,7 @@ const routes =[
                         element:<WeeklyReport/>
                     },
                 ]
-            }
+            },
         ]
     }
 ]

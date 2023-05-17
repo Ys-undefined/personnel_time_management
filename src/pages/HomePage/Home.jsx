@@ -13,6 +13,10 @@ const items =[
         label: '日报周报',
         key: '/record',
     },
+    {
+        label:'分享课表',
+        key: '/course-list',
+    }
 ];
 export const Home = () => {
     const [current, setCurrent] = useState('/schedule');
