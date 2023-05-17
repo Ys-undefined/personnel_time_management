@@ -1,5 +1,5 @@
 import axios from 'axios';
-import QS from 'qs';
+import QS from 'query-string'
 
 //todo
 axios.defaults.baseURL = "";

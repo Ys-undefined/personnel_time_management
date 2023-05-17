@@ -46,10 +46,22 @@
   padding-inline: 50px;
   padding: 0;
   line-height: 64px;
+  order: 2;
+
+}
+.lastStyle {
+  order:3;
+  padding-right: 20px;
+  text-align: center;
+  color: black;
+  height: 64px;
+  padding-inline: 50px;
+  line-height: 64px;
 }
 .contentStyle{
   height: calc(100vh);
   
+  min-height: 93vh;
 }
 
 

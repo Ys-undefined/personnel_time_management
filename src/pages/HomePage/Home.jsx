@@ -13,10 +13,14 @@ const items =[
         label: '日报周报',
         key: '/record',
     },
+    // {
+    //     label: '我的统计信息',
+    //     key: '/information',
+    // },
     {
-        label: '我的统计信息',
-        key: '/information',
-    },
+        label:'分享课表', 
+        key:'/course-list',
+    }
 ];
 export const Home = () => {
     const [current, setCurrent] = useState('/schedule');
@@ -27,7 +31,8 @@ export const Home = () => {
     };
     return (
         <>
-                <Layout style={{position: "relative"}}>
+                {/* <Layout style={{position: "relative"}}> */}
+                <Layout>
                     <Header className={styles.headerStyle} >
                       <div className={styles.leftStyle}>go run</div>
                         <Menu className={styles.middleStyle} onClick={onClick} selectedKeys={[current]} mode="horizontal" defaultSelectedKeys={["/schedule"]} items={items} />
