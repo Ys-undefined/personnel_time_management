@@ -2,7 +2,6 @@
   text-align: center;
   height: 64px;
   padding-inline: 50px;
- 
    margin-bottom: 5px;
   // margin-top: 5px;
   line-height: 64px;
@@ -23,7 +22,6 @@
   color: black;
   height: 64px;
   padding-inline: 50px;
-  padding: 0;
   line-height: 64px;
   order:1;
 }
@@ -44,12 +42,10 @@
   color: black;
   height: 64px;
   padding-inline: 50px;
-  padding: 0;
   line-height: 64px;
 }
 .contentStyle{
-  height: calc(100vh);
-  
+  min-height: 93vh;
 }
 
 
