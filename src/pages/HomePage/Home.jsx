@@ -16,6 +16,7 @@ const items =[
     {
         label:'分享课表',
         key: '/course-list',
+
     }
 ];
 export const Home = () => {
