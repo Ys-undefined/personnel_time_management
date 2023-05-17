@@ -14,7 +14,19 @@ dayjs.extend(isBetween)
 
 const ReportDisplay= (props)=>{
     //测试数据
-    const [reports,setReports] = useState([])
+    const [reports,setReports] = useState([{
+        reportId:1,
+        content:"xxxxxx",
+        riskInfo:"xxxxxx",
+        reportTime:"2022-08-02",
+        isBalance:true
+    },{
+        reportId:2,
+        content:"aaaaaaa",
+        riskInfo:"xxxxxx",
+        reportTime:"2022-08-02",
+        isBalance:false
+    }])
     // const [url] = useState(props.url)
     const [total,setTotal]=useState(0)
     const type = props.type
@@ -35,7 +47,7 @@ const ReportDisplay= (props)=>{
         })
     },[])
 
-    function handleGetReports(page,pageSize){
+    const handleGetReports=(page,pageSize)=>{
         console.log(page,pageSize)
         //todo 请求数据 && setReports
     }

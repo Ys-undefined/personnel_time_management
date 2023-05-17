@@ -1,27 +1,20 @@
 import {Button, DatePicker, Form} from 'antd'
-import {useRef} from 'react'
 import dayjs from 'dayjs'
 import PropTypes from 'prop-types'
 
 const {RangePicker} = DatePicker
-const rangeConfig = {
-    rules: [
-        {
-            type: 'array',
-            required: true,
-            message: 'Please select time!',
-        },
-    ],
-};
+
 const disableDate=(current)=> {
     return current && current > dayjs().endOf('day')
 }
 
 const ReportHeader=(props)=>{
-    const dateFormRef = useRef(null)
     const filterReportByDate = props.filterReportByDate
+    const [form] = Form.useForm()
     function resetDate(){
-        dateFormRef.current.setFieldValue("date-range-picker",[])
+        // dateFormRef.current.setFieldValue("date-range-picker",[])
+        // dateFormRef.current.resetFields()
+        form.resetFields()
         //todo 发送默认请求
     }
     function onFinish(fieldsValue){
@@ -37,10 +30,10 @@ const ReportHeader=(props)=>{
             <Form
                 name="date_range_picker_form"
                 onFinish={onFinish}
-                ref={dateFormRef}
                 layout={"inline"}
+                form={form}
             >
-                <Form.Item name="date-range-picker" label="日期范围" {...rangeConfig}>
+                <Form.Item name="date-range-picker" label="日期范围" >
                     <RangePicker disabledDate={disableDate}/>
                 </Form.Item>
                 <Form.Item name="submit">
