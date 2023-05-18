@@ -61,7 +61,7 @@ export const SpareTime = () => {
         // console.log(temp)
         setTimeList(temp)
     }
-    const day = timeList.map((d,index)=>{
+    const day =()=> timeList.map((d,index)=>{
         return <div key={index} className={styles.day}>
             {
                 d.map(period=>{
@@ -69,7 +69,7 @@ export const SpareTime = () => {
                         <CheckableTag key={period.id}
                                       className={styles.period}
                                       checked={period.idle}
-                                      style={{backgroundColor:period.idle?'':'#ebdbc5',fontSize:'15px'}}
+                                      style={{backgroundColor:period.idle?'':'#ebdbc5'}}
                                       onChange={debounce((checked)=>{
                                           handleChange(period,checked)
                                       },300)}
@@ -114,16 +114,16 @@ export const SpareTime = () => {
                 </Radio.Group>
                 <div className={styles.title}>
                     {
-                        timeList.map((d,index)=>{
-                            return <div className={styles.dayOfWeek} key={index}>
-                                <div className={styles.date}>{dayjs(d[0].date).format("YYYY-MM-DD")}</div>
-                                <div className={styles.dayNum}>{`周${toChineseNum(dayjs(d[0].date).day())}`}</div>
+                        timeList && timeList.map((d,index)=>{
+                            return <div className={styles.dayOfWeek} key={`week${index}`}>
+                                <p  className={styles.date}>{dayjs(d[0].date).format("YYYY-MM-DD")}</p>
+                                <p  className={styles.dayNum}>{`周${toChineseNum(dayjs(d[0].date).day())}`}</p>
                             </div>
                         })
                     }
                 </div>
                 <div className={styles.week}>
-                    { day }
+                    {day()}
                 </div>
             </div>
 

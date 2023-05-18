@@ -23,8 +23,10 @@ export const Home = () => {
     const [current, setCurrent] = useState('/schedule');
     const navigate = useNavigate();
     const onClick = (e) => {
-        setCurrent(e.key);
-        navigate("/home"+e.key)
+        if (e.key !== current){
+            setCurrent(e.key);
+            navigate("/home"+e.key)
+        }
     };
     return (
         <>
