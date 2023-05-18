@@ -1,4 +1,3 @@
-import  {Course} from '../../../../components/Course/Course.jsx'
 import {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import styles from '../courseList.module.scss'
