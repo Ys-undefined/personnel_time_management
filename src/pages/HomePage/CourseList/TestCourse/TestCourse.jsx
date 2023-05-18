@@ -1,8 +1,7 @@
 import React from 'react';
-import { Col, Row } from 'antd';
+import {Row } from 'antd';
 import {Course} from "../../../../components/Course/Course.jsx";
 import {useState} from 'react'
-import styles from './../courseList.module.scss'
 export const TestCourse = () => {
       const[courseList,setData] = useState([
           {courseName:"react课程",

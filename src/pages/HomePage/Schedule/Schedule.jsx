@@ -16,10 +16,14 @@ const items=[
         key:'/clock-in'
     },
     {
+        label: '我参与的课程',
+        key:'/my-course'
+    },
+    {
         label: '我的设置',
         key:'/user-info'
     },
-    
+
 ]
 export const Schedule = () => {
     const location = useLocation()
