@@ -15,6 +15,7 @@ import { SoftwareSkillCourse} from '../pages/HomePage/CourseList/SoftwareSkillCo
 import { TestCourse } from '../pages/HomePage/CourseList/TestCourse/TestCourse'
 import {ModifyUser} from '../pages/HomePage/Schedule/UserInformation/ModifyUser'
 import {ModifyPwd} from '../pages/HomePage/Schedule/UserInformation/ModifyPwd'
+import {MyCourse} from "../pages/HomePage/Schedule/MyCourse/MyCourse";
 
 
 const routes =[
@@ -38,6 +39,10 @@ const routes =[
                     {
                         path:"/home/schedule/spare-time",
                         element:<SpareTime/>
+                    },
+                    {
+                        path:"/home/schedule/my-course",
+                        element:<MyCourse/>
                     },
                     {
                         path: '/home/schedule/clock-in',
