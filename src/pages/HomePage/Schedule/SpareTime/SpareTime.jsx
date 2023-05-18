@@ -61,7 +61,7 @@ export const SpareTime = () => {
         // console.log(temp)
         setTimeList(temp)
     }
-    const day = timeList.map((d,index)=>{
+    const day = ()=> timeList.map((d,index)=>{
         return <div key={index} className={styles.day}>
             {
                 d.map(period=>{
@@ -123,7 +123,7 @@ export const SpareTime = () => {
                     }
                 </div>
                 <div className={styles.week}>
-                    { day }
+                    { day() }
                 </div>
             </div>
 
