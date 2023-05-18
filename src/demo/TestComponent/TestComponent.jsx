@@ -5,7 +5,7 @@ export class TestComponent extends Component {
     render() {
         return (
             <>
-                <p className={styles.box}>Test</p>
+                <p className={styles.box}>Test123456</p>
             </>
         )
     }

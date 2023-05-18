@@ -33,6 +33,7 @@
   order: 2;
 }
 .lastStyle {
+  position: relative;
   order:3;
   padding-right: 20px;
   text-align: center;
@@ -40,9 +41,42 @@
   height: 64px;
   padding-inline: 50px;
   line-height: 64px;
+  display: flex;
+  &:hover{
+    .select{
+      
+      display: block;
+    }
+   
+  }
 }
 .contentStyle{
   min-height: 93vh;
 }
+
+.select{
+  position: absolute;
+  top: 50px;
+  width: 100px;
+  height: 100px; 
+  border: 1px solid gainsboro;
+  display: none;
+  background-color: #fff;
+  padding: 0px;
+ 
+}
+a{
+  color: black;
+  text-align: center;
+}
+.userInformation{
+  width: 100px;
+  height: 50px;
+}
+.loginOut{
+  width: 100px;
+  height: 50px;
+}
+
 
 

@@ -14,7 +14,12 @@ const items=[
     {
         label: '上月打卡记录',
         key:'/clock-in'
-    }
+    },
+    {
+        label: '我的设置',
+        key:'/user-info'
+    },
+    
 ]
 export const Schedule = () => {
     const location = useLocation()
