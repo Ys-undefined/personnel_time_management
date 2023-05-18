@@ -1,6 +1,7 @@
 import axios from 'axios';
 import QS from 'query-string'
-
+import Cookies from 'js-cookie'
+import {message} from 'antd'
 //todo
 axios.defaults.baseURL = "";
 
@@ -9,15 +10,14 @@ axios.defaults.timeout = 10000;
 
 // post请求头
 //axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
-//axios.defaults.headers.post['Content-Type'] = 'application/j;charset=UTF-8';
+axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 // 请求拦截器
 axios.interceptors.request.use(
     config => {
         //todo
         // 目前为将token存入本地 以及对登录页取消token
-        const token = window.localStorage.getItem("token");
-        config.headers["token"] = token;
-        if (config.url == "login") {
+        config.headers["token"] = Cookies.get("token");
+        if (config.url === "/user/login") {
             config.headers.delete("token");
         }
         return config;
@@ -30,17 +30,20 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     response => {
 
-        if (response.data.code == 200) {
+        if (response.data.code === 200) {
             return Promise.resolve(response);
         } 
-        if (response.data.code == 401) {
+        if (response.data.code === 401) {
+            message.error(response.data.msg,3).then(r=>r)
             return Promise.resolve(response);
         }else {
+            message.error(response.data.msg,3).then(r=>r)
             return Promise.reject(response);
         }
     },
     error => {
         if (error.response.status) {
+            message.error(error.message,3).then(r=>r)
             return Promise.reject(error.response);
         }
     }

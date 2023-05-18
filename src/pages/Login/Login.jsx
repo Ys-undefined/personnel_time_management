@@ -1,8 +1,7 @@
-import {useNavigate,useLocation,useSearchParams, useLoaderData} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import style from './Login.module.scss'
-import {Button,Checkbox,Form,Input,message } from 'antd'
+import {Button,Form,Input,message } from 'antd'
 import {LockOutlined,UserOutlined} from '@ant-design/icons'
-import { useState,useRef } from 'react'
 import '../../api/index'
 
 

@@ -4,7 +4,7 @@ import {Schedule} from '../pages/HomePage/Schedule/Schedule'
 import {SpareTime} from '../pages/HomePage/Schedule/SpareTime/SpareTime'
 import {Report} from '../pages/HomePage/Report/Report.jsx'
 import {ClockIn} from '../pages/HomePage/Schedule/ClockIn/ClockIn'
-import {createBrowserRouter,Navigate} from 'react-router-dom'
+import {Navigate} from 'react-router-dom'
 import {DailyReport} from '../pages/HomePage/Report/DailyReport/DailyReport'
 import {WeeklyReport} from '../pages/HomePage/Report/WeeklyReport/WeeklyReport'
 //分享课程
