@@ -1,59 +1,26 @@
 import {useNavigate} from 'react-router-dom'
 import style from './Login.module.scss'
-import {Button,Form,Input,message } from 'antd'
+import {Button,Form,Input } from 'antd'
 import {LockOutlined,UserOutlined} from '@ant-design/icons'
-import '../../api/index'
+import Cookies from 'js-cookie'
+import {post} from '../../utils/request.js'
 
-
+const api={
+    login:"/api/user/login"
+}
 export const Login = () => {
- 
-   const navigate = useNavigate()
-    //跳转到后台
-    function login(){
-        navigate("/home")
-    }
- 
+  const navigate = useNavigate()
   const [form] = Form.useForm();
-
-  //提交表单
-  // const onSubmit=(e)=>{
-  //   //获取表单元素
-  //   console.log(username,password)
-  //   api.Login({
-  //     username:'',
-  //     password:''
-  //   })
-  //   }
-
-  const onSubmit=(e)=>{
-    e.preventDefault();
-    // 调登录接口
-    api.toLogin({
-      username:'',
-      password:''
-    })
+  const login = async (values)=>{
+      const res = post(api.login,values)
+      if (res){
+          console.log(res.data)
+      }
   }
-    
-    //该事件是为了收集后台数据
-    const onFinish=(values)=>{
-        console.log('Received values of form:', values);
-        const {username,password} = values
-        if (username==='123' && password==='456'){
-          message.info('This is a normal message');
-          login();
-        }
-       
+    const onFinish = (values)=>{
+        // login(values)
+        navigate('/home')
     }
-
-    const onFinishFailed=(errorInfo)=>{
-      console.log('Failed:',errorInfo)
-    }
-
-    const autoLogin=(values)=>{
-
-    }
-   
-   
     return (
     <div className={style.login}>
       <div className={style.login_left}>
@@ -65,12 +32,7 @@ export const Login = () => {
         // 栅格化
         labelCol={{ span: 8 }}
         wrapperCol={{ span:8  }}
-        // initialValues={{
-        //      remember:true,
-        //  }}
-         onSubmit={onSubmit}
-         onFinish={onFinish}
-      
+        onFinish={onFinish}
         >
          <Form.Item
          label="用户名"
@@ -107,7 +69,6 @@ export const Login = () => {
                
              />
            </Form.Item>
-          
            <Form.Item
              wrapperCol={
                 {
@@ -122,7 +83,6 @@ export const Login = () => {
            </Form.Item>
         </Form>
         </div>
-       
     </div>
     
     )

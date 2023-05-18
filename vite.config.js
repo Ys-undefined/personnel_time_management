@@ -6,14 +6,12 @@ export default defineConfig({
   plugins: [react()],
   server: {
     hmr: true,
-    port: 3000,
+    port:3000,
     proxy: {
       "/api": {
-        target: '',
+        target: 'http://123.56.27.142:8888',
         changeOrigin: true,
-        pathRewrite: {
-          "^/api": ""
-        }
+        rewrite: (path) => path.replace(/^\/api/, ''),
       }
     }
   },
