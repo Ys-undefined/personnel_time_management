@@ -36,7 +36,7 @@ export const CourseList = () => {
                 </div>
                 <SideNavi items={items} naviUrl={location.pathname} defaultDisplayKey="/frontend-course"/>
             </Sider>
-            <Content className={styles.contentStyle} style={{display:"",overflow:'scroll',height:'93vh'}}>
+            <Content className={styles.contentStyle} style={{display:"flex",overflow:'scroll',height:'93vh'}}>
                 <Outlet  />
             </Content>
         </>
