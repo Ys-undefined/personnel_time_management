@@ -75,8 +75,7 @@ export const SpareTime = () => {
                 return p
             })
         })
-        const res = await post(api.updateIdle,timeList)
-        console.log(res)
+        const res = await post(api.updateIdle,timeList,true)
         if (res){
             setTimeList(temp)
         }

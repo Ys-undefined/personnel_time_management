@@ -15,7 +15,7 @@ axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 // 请求拦截器
 axios.interceptors.request.use(
     config => {
-        if (config.url !== "user/login") {
+        if (config.url !== "/api/user/login") {
             config.headers["token"] = Cookies.get("token");
         }
         return config;
@@ -32,10 +32,10 @@ axios.interceptors.response.use(
         } 
         if (response.data.code === 401) {
             message.error(response.data.msg,3).then(r=>r)
-            return Promise.reject(response);
+            return false
         }else {
             message.error(response.data.msg,3).then(r=>r)
-            return Promise.reject(response);
+            return false
         }
     },
     error => {
@@ -68,7 +68,11 @@ export function get(url, params) {
  * @param {String} url [请求的url地址]
  * @param {Object} params [请求时携带的参数]
  */
-export function post(url, params) {
+export function post(url, params,isJson) {
+    if (!isJson){
+        axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
+        params=QS.stringify(params)
+    }
     return new Promise((resolve, reject) => {
         axios.post(url, params)
             .then(res => {

@@ -1,9 +1,9 @@
 import {useNavigate} from 'react-router-dom'
 import style from './Login.module.scss'
-import {Button,Form,Input } from 'antd'
-import {LockOutlined,UserOutlined} from '@ant-design/icons'
-import Cookies from 'js-cookie'
+import {Button, Form, Input} from 'antd'
+import {LockOutlined, UserOutlined} from '@ant-design/icons'
 import {post} from '../../utils/request.js'
+import Cookies from 'js-cookie'
 
 const api={
     login:"/api/user/login"
@@ -11,15 +11,14 @@ const api={
 export const Login = () => {
   const navigate = useNavigate()
   const [form] = Form.useForm();
-  const login = async (values)=>{
-      const res = post(api.login,values)
-      if (res){
-          console.log(res.data)
-      }
-  }
-    const onFinish = (values)=>{
-        // login(values)
-        navigate('/home')
+
+    const onFinish = async (values)=>{
+        const res= await post(api.login, values, false)
+        if (res){
+            console.log(res.data)
+            Cookies.set("token",res.data.token,{ expires: 3, path: '' })
+            navigate("/home")
+        }
     }
     return (
     <div className={style.login}>
@@ -36,7 +35,7 @@ export const Login = () => {
         >
          <Form.Item
          label="用户名"
-         name="username"
+         name="userName"
          
          rules={[
              {

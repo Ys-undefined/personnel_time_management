@@ -3,7 +3,6 @@ const { Header } = Layout;
 import styles from './home.module.scss'
 import {useState} from 'react'
 import {Outlet, useNavigate} from 'react-router-dom'
-// import { userInfo } from 'os';
 const items =[
     {
         label: '个人日程',
