@@ -16,7 +16,8 @@ const items=[
     {
         label: '我的设置',
         key:'/user-info'
-    }
+    },
+    
 ]
 export const Schedule = () => {
     const location = useLocation()

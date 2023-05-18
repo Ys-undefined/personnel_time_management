@@ -1,21 +1,12 @@
 import React from 'react'
-import {
-    AutoComplete,
-    Button,
-    Cascader,
-    Checkbox,
-    Col,
-    Form,
-    Input,
-    InputNumber,
-    Row,
-    Select,
-  } from 'antd';
+import { NavLink,Outlet } from 'react-router-dom'
+import {AutoComplete,Button,Cascader,Checkbox,Col,Form,Input,InputNumber,Row,Select,} from 'antd';
   import { useState } from 'react';
   const { Option } = Select;
   import {LockOutlined,UserOutlined} from '@ant-design/icons'
-  import style from '../UserInformation/UserInformation.module.scss'
-export default function modifyUser() {
+  
+
+export const ModifyUser =() => {
     
   //
   const formRef = React.useRef(null);
@@ -81,11 +72,6 @@ export default function modifyUser() {
   };
 
 
-  //获取到了输入框的内容
-  let nameValue=Form.useWatch('nickName',form)
-  nameValue='1234'
-  // console.log(nameValue)
-
 
   function setUser(e){
     // 获取文本框输入内容
@@ -99,10 +85,17 @@ export default function modifyUser() {
   };
   return (
     
-    <div className={style.info}>
-      <div className={style.modify_info}>
-       <h1>修改信息</h1>
-      <Form form={form}
+    <div >
+      <div >
+      <div><Outlet/> </div>
+      <div>
+      <NavLink >修改个人信息</NavLink>
+      <NavLink to='/home/schedule/user-info/pwd'>修改密码</NavLink>
+      </div>
+      
+       
+      
+      <Form 
       ref={formRef}
       labelCol={{ span: 6 }}
       wrapperCol={{ span:12  }}
@@ -177,3 +170,5 @@ export default function modifyUser() {
     </div> 
   )
 }
+
+export default ModifyUser;

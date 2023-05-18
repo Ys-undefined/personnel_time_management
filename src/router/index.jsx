@@ -5,7 +5,7 @@ import {SpareTime} from '../pages/HomePage/Schedule/SpareTime/SpareTime'
 import {Report} from '../pages/HomePage/Report/Report.jsx'
 import {ClockIn} from '../pages/HomePage/Schedule/ClockIn/ClockIn'
 import { UserInformation } from '../pages/HomePage/Schedule/UserInformation/UserInformation'
-import {Navigate} from 'react-router-dom'
+import {createBrowserRouter,Navigate} from 'react-router-dom'
 import {DailyReport} from '../pages/HomePage/Report/DailyReport/DailyReport'
 import {WeeklyReport} from '../pages/HomePage/Report/WeeklyReport/WeeklyReport'
 //分享课程
@@ -14,6 +14,9 @@ import { BackendCourse} from '../pages/HomePage/CourseList/BackendCourse/Backend
 import { FrontendCourse} from '../pages/HomePage/CourseList/FrontendCourse/FrontendCourse'
 import { SoftwareSkillCourse} from '../pages/HomePage/CourseList/SoftwareSkillCourse/SoftwareSkillCourse'
 import { TestCourse } from '../pages/HomePage/CourseList/TestCourse/TestCourse'
+import {ModifyUser} from '../pages/HomePage/Schedule/UserInformation/ModifyUser'
+import {ModifyPwd} from '../pages/HomePage/Schedule/UserInformation/ModifyPwd'
+
 
 const routes =[
     {
@@ -41,9 +44,21 @@ const routes =[
                         path: '/home/schedule/clock-in',
                         element: <ClockIn/>
                     },
-                    {
-                        path: '/home/schedule/user-info',
-                        element: <UserInformation/>
+                    {   
+                        //这里直接加载子组件
+                        children:[
+                            {
+                                path:'/home/schedule/user-info',
+                                element: <ModifyUser/>
+                            },
+                            {
+                                path:'/home/schedule/user-info/pwd',
+                                element: <ModifyPwd/>
+                            }
+                           
+
+
+                        ]
                     }
                 ]
             },

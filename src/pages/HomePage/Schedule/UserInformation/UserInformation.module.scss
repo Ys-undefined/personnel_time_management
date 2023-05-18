@@ -3,20 +3,20 @@ $margin:20px;
     width: 1200px;
     height: 800px;
    
-    display: flex;
+    
     flex-direction: row;
     margin: auto;
     margin-top:$margin;
 }
 
 .modify_info{
-    flex: 0 0 50%;
+   
     border-right: 1px solid gainsboro;
     margin-left: $margin;
   
 }
 .modify_password{
-    flex: 0 0 50%;
+    
     margin-left: $margin;
     
     
