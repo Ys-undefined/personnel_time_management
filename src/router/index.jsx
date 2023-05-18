@@ -4,8 +4,8 @@ import {Schedule} from '../pages/HomePage/Schedule/Schedule'
 import {SpareTime} from '../pages/HomePage/Schedule/SpareTime/SpareTime'
 import {Report} from '../pages/HomePage/Report/Report.jsx'
 import {ClockIn} from '../pages/HomePage/Schedule/ClockIn/ClockIn'
-import {UserInformation} from '../pages/HomePage/Schedule/UserInformation/UserInformation'
-import {createBrowserRouter, Navigate} from 'react-router-dom'
+import { UserInformation } from '../pages/HomePage/Schedule/UserInformation/UserInformation'
+import {Navigate} from 'react-router-dom'
 import {DailyReport} from '../pages/HomePage/Report/DailyReport/DailyReport'
 import {WeeklyReport} from '../pages/HomePage/Report/WeeklyReport/WeeklyReport'
 //分享课程
@@ -14,15 +14,16 @@ import { BackendCourse} from '../pages/HomePage/CourseList/BackendCourse/Backend
 import { FrontendCourse} from '../pages/HomePage/CourseList/FrontendCourse/FrontendCourse'
 import { SoftwareSkillCourse} from '../pages/HomePage/CourseList/SoftwareSkillCourse/SoftwareSkillCourse'
 import { TestCourse } from '../pages/HomePage/CourseList/TestCourse/TestCourse'
+
 const routes =[
     {
         path:'',
-        element:<Login/>
-        
+        element:<Login/>,
     },
     {
         path: "/home",
         element: <Navigate to="/home/schedule/spare-time"/>
+          
     },
     {
         path: '/home',
@@ -58,6 +59,29 @@ const routes =[
                         path:'/home/record/weekly-report',
                         element:<WeeklyReport/>
                     },
+                ]
+            },
+            {
+                path: "/home/course-list",
+                element: <CourseList/>,
+                children:[
+                    {
+                        path:'/home/course-list/frontend-course',
+                        element: <FrontendCourse/>
+                    },
+                    {
+                        path:'/home/course-list/backend-course',
+                        element: <BackendCourse/>
+                    },
+                    {
+                        path:'/home/course-list/software-skill-course',
+                        element:<SoftwareSkillCourse/>
+                    },
+                    {
+                        path:'/home/course-list/test-course',
+                        element:<TestCourse/>
+                    }
+
                 ]
             },
         ]
