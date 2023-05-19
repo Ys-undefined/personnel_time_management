@@ -1,0 +1,31 @@
+$margin:20px;
+.info{
+    width: 1200px;
+    height: 800px;
+   
+    
+    flex-direction: row;
+    margin: auto;
+    margin-top:$margin;
+}
+
+.modify_info{
+   
+    border-right: 1px solid gainsboro;
+    margin-left: $margin;
+  
+}
+.modify_password{
+    
+    margin-left: $margin;
+    
+    
+}
+
+
+
+
+
+
+
+

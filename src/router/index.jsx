@@ -16,6 +16,11 @@ import { BackendCourse} from '../pages/HomePage/CourseList/BackendCourse/Backend
 import { FrontendCourse} from '../pages/HomePage/CourseList/FrontendCourse/FrontendCourse'
 import { SoftwareSkillCourse} from '../pages/HomePage/CourseList/SoftwareSkillCourse/SoftwareSkillCourse'
 import { TestCourse } from '../pages/HomePage/CourseList/TestCourse/TestCourse'
+import {ModifyUser} from '../pages/HomePage/Schedule/UserInformation/ModifyUser'
+import {ModifyPwd} from '../pages/HomePage/Schedule/UserInformation/ModifyPwd'
+import {MyCourse} from "../pages/HomePage/Schedule/MyCourse/MyCourse";
+
+
 const routes =[
     {
         path:'',
@@ -24,6 +29,7 @@ const routes =[
     {
         path: "/home",
         element: <Navigate to="/home/schedule/spare-time"/>
+          
     },
     {
         path: '/home',
@@ -38,8 +44,28 @@ const routes =[
                         element:<SpareTime/>
                     },
                     {
+                        path:"/home/schedule/my-course",
+                        element:<MyCourse/>
+                    },
+                    {
                         path: '/home/schedule/clock-in',
                         element: <ClockIn/>
+                    },
+                    {   
+                        //这里直接加载子组件
+                        children:[
+                            {
+                                path:'/home/schedule/user-info',
+                                element: <ModifyUser/>
+                            },
+                            {
+                                path:'/home/schedule/user-info/pwd',
+                                element: <ModifyPwd/>
+                            }
+                           
+
+
+                        ]
                     }
                 ]
             },

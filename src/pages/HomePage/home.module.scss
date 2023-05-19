@@ -2,14 +2,11 @@
   text-align: center;
   height: 64px;
   padding-inline: 50px;
- 
-   margin-bottom: 5px;
-  // margin-top: 5px;
+  margin-bottom: 5px;
   line-height: 64px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  //box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
   border-width: 2px;
   border-style: solid;
   border-color: rgb(205, 204, 204);
@@ -18,7 +15,7 @@
   
 }
 .leftStyle {
-  padding-left: 20px;
+  padding-left: 10px;
   text-align: center;
   color: black;
   height: 64px;
@@ -35,9 +32,9 @@
   padding: 0;
   line-height: 64px;
   order: 2;
-
 }
 .lastStyle {
+  position: relative;
   order:3;
   padding-right: 20px;
   text-align: center;
@@ -57,11 +54,44 @@
   height: 64px;
   padding-inline: 50px;
   line-height: 64px;
+  display: flex;
+  &:hover{
+    .select{
+      
+      display: block;
+    }
+   
+  }
 }
 .contentStyle{
   height: calc(100vh);
   
   min-height: 93vh;
 }
+
+.select{
+  position: absolute;
+  top: 50px;
+  width: 100px;
+  height: 100px; 
+  border: 1px solid gainsboro;
+  display: none;
+  background-color: #fff;
+  padding: 0px;
+ 
+}
+a{
+  color: black;
+  text-align: center;
+}
+.userInformation{
+  width: 100px;
+  height: 50px;
+}
+.loginOut{
+  width: 100px;
+  height: 50px;
+}
+
 
 

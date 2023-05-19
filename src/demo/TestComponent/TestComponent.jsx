@@ -1,12 +1,12 @@
-import {Component} from 'react'
-import styles from './testComponent.module.scss'
+import { Component } from 'react';
+import styles from './testComponent.module.scss';
 
 export class TestComponent extends Component {
-    render() {
-        return (
-            <>
-                <p className={styles.box}>Test123</p>
-            </>
-        )
-    }
+  render() {
+    return (
+      <>
+        <p className={styles.box}>Test123456</p>
+      </>
+    );
+  }
 }

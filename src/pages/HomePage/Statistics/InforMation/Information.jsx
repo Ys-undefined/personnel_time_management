@@ -1,13 +1,44 @@
 //  import { Col, Row, Statistic,Card, Space ,Divider,Descriptions} from 'antd';
 import style from './information.module.scss';
-import { CaretUpOutlined, CaretDownOutlined } from '@ant-design/icons';
+import {
+  CaretUpOutlined,
+  CaretDownOutlined,
+  InfoCircleOutlined,
+} from '@ant-design/icons';
 import { Avatar, List, Button } from 'antd';
 import * as echarts from 'echarts';
-import React, { createElement, useEffect, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
+import { get, post } from '../../../../utils/request.js';
 // import DemoArea from '../../../../components/InforMation/Chart.jsx';
 
+const api = {
+  infomation: '/api/getStatisticsInformations',
+};
 export const InforMation = () => {
-  const va = [123];
+  // 请求数据
+  const [information, setinformation] = useState([]);
+  const inforMation = async () => {
+    const res = await get(api.infomation, null);
+    if (res) {
+      setinformation(res.data);
+      console.log(res.data);
+    }
+  };
+  useEffect(() => {
+    inforMation();
+  }, []);
+  console.log(information.weekNum);
+
+  const [last, setlast] = useState([]);
+  const onClick = () => {
+    setlast({
+      name: '张三',
+      num: 323234,
+    });
+    console.log('1');
+  };
+
+  // 测试数据
   const data = [
     {
       weekYoy: 12,
@@ -20,7 +51,7 @@ export const InforMation = () => {
       codeWeek: 1423,
       daysNum: 12,
       weekNum: 53,
-      codeLoad: ['365', '600', '540', '400', '300'],
+      codeLoad: ['365', '600', '540', '900', '300'],
       Ranking: [
         { name: '张三', num: 323234 },
         { name: '李四', num: 232234 },
@@ -41,67 +72,165 @@ export const InforMation = () => {
       ],
     },
   ];
-
-  const chartRef = useRef();
-  const chartRef1 = useRef();
   const options = {
-    // 标题
     title: {
       text: '代码量趋势',
+      textStyle: {
+        fontSize: 16,
+        fontweight: 'bolder',
+      },
     },
-    // 提示框组件
 
-    // 图例组件
-
-    // x轴
     xAxis: {
       type: 'category',
       data: ['周一', '周二', '周三', '周四', '周五'],
+      axisTick: {
+        show: false,
+      },
+      axisLine: {
+        show: true,
+        lineStyle: {
+          color: '#ccc',
+        },
+      },
+      axisLabel: {
+        textStyle: {
+          color: '#999', //坐标值得具体的颜色
+        },
+      },
     },
     // y轴
     yAxis: {
       type: 'value',
+      interval: 250,
+      splitLine: {
+        show: true,
+        interval: 'modSl',
+        lineStyle: {
+          color: '#ccc',
+          type: 'dotted',
+        },
+      },
+    },
+    series: [
+      {
+        data: data[0].codeLoad,
+        type: 'bar', // 柱状图
+        barWidth: 20,
+        color: '#25A3F0',
+      },
+    ],
+  };
+  const options_area = {
+    // 标题
+    title: {
+      text: '代码量趋势',
+      show: false,
+    },
+    tooltip: {
+      trigger: 'axis',
+      borderWidth: 0,
+      textStyle: {
+        color: '#fff',
+      },
+      backgroundColor: '#999',
+      confine: true, // 超出的部分不会被遮盖
+    },
+    grid: {
+      // left: '5%',
+      // right: '5%',
+      top: 0,
+      bottom: '28%',
+    },
+    // x轴
+    xAxis: {
+      type: 'category',
+      data: ['周一', '周二', '周三', '周四', '周五'],
+      show: false,
+      axisTick: {
+        lineStyle: {
+          color: '#999',
+        },
+      },
+      axisLabel: {
+        color: '#999',
+        showMinLabel: true,
+        showMaxLabel: true,
+        formatter: function (value, index) {
+          if (value !== '') {
+            value =
+              value.split('-')[0] +
+              '/' +
+              value.split('-')[1] +
+              '/' +
+              value.split('-')[2];
+          }
+          const data = [];
+          data.push(index);
+          const count = data[data.length - 1];
+          if (index === 0 && value !== '') {
+            return '             ' + value;
+          }
+          if (index === count && value !== '') {
+            return value + '            ';
+          }
+        },
+      },
+      axisLine: {
+        lineStyle: {
+          type: 'dashed',
+          color: '#ececec',
+        },
+      },
+      boundaryGap: false,
+    },
+    // y轴
+    yAxis: {
+      type: 'value',
+      show: false,
     },
     series: [
       {
         data: data[0].codeLoad,
         // type: 'line' 折线图
-        type: 'bar', // 柱状图
+        type: 'line',
+        lineStyle: {
+          color: '#FFFEFF',
+        },
+        connectNulls: true,
+        symbol: 'none',
+        areaStyle: {
+          color: '#7820BF',
+        },
       },
     ],
   };
 
   useEffect(() => {
-    // 创建一个echarts实例，返回echarts实例。不能在单个容器中创建多个echarts实例
-    const chart = echarts.init(chartRef.current);
-
-    // 设置图表实例的配置项和数据
+    const chart = echarts.init(document.getElementById('chart'));
     chart.setOption(options);
-
-    //  // 组件卸载
-    //  return () => {
-    //    // myChart.dispose() 销毁实例。实例销毁后无法再被使用
-    //    chart.dispose();
-    //  };
   }, []);
-  //document.getElementById('weekup').style.display = '';
-
-  const changeData = () => {
-    data2 = data[0].lastRanking;
-  };
+  useEffect(() => {
+    const chart = echarts.init(document.getElementById('barchart'));
+    chart.setOption(options_area);
+  }, []);
 
   return (
     <>
       <div>
-        <div style={{ width: '1200px', height: '160px' }}>
+        <div style={{ width: '1263px', height: '160px' }}>
           <div className={style.divStyle}>
-            <p className={style.title}>本周投入工时</p>
+            <div className={style.title}>
+              <span style={{ marginRight: 136 }}>本周投入工时</span>
+              <InfoCircleOutlined />
+            </div>
+
             <div className={style.houreBox}>
-              <span className={style.number}>{data[0].workTimeWeek}</span>
+              <span className={style.number}>{information.workTimeWeek}</span>
               <span className={style.tips}>小时</span>
             </div>
             <div className={style.topdivStyle}>
-              <div className={style.content}>
+              <div className={style.contentleft}>
                 <p>周同比</p>
                 <CaretUpOutlined
                   className={style.green}
@@ -113,8 +242,8 @@ export const InforMation = () => {
                 />
                 <p>20%</p>
               </div>
-              <div className={style.content}>
-                <p>日同比</p>
+              <div className={style.contentright}>
+                <p>日环比</p>
                 <CaretUpOutlined
                   className={style.green}
                   style={{ display: data[0].dayup == 1 ? 'inline' : 'none' }}
@@ -128,16 +257,19 @@ export const InforMation = () => {
             </div>
             <div className={style.bottombox}>
               <p style={{ marginRight: 5 }}>2023年总投入工时</p>
-              <p>{data[0].workTime}</p>
+              <p>{information.workTime}</p>
             </div>
           </div>
           <div className={style.divStyle}>
-            <p className={style.title}>代码量</p>
+            <div className={style.title}>
+              <span style={{ marginRight: 170 }}>代码量</span>
+              <InfoCircleOutlined />
+            </div>
             <div className={style.houreBox}>
               <span className={style.number}>{data[0].workTime}</span>
               <span className={style.tips}>行</span>
             </div>
-            <div className={style.topdivStyle} ref={chartRef1}></div>
+            <div id="barchart" className={style.areachart}></div>
             <div className={style.bottombox}>
               <p style={{ marginRight: 10 }}>周代码量</p>
               <p>{data[0].codeWeek}</p>
@@ -145,11 +277,11 @@ export const InforMation = () => {
           </div>
           <div className={style.divStyle}>
             <p className={style.title}>日报条数</p>
-            <p className={style.reportStyle}>{data[0].daysNum}</p>
+            <p className={style.reportStyle}>{information.daysNum}</p>
           </div>
           <div className={style.divStyle}>
             <p className={style.title}>周报条数</p>
-            <p className={style.reportStyle}>{data[0].weekNum}</p>
+            <p className={style.reportStyle}>{information.weekNum}</p>
           </div>
         </div>
 
@@ -157,10 +289,13 @@ export const InforMation = () => {
           <div className={style.titleStyle}>
             <p style={{ marginRight: 800 }}>代码量</p>
             <p style={{ marginRight: 20 }}>本周</p>
-            <span className={style.lastweek}> 上周 </span>
+            <button id="lastweek" onClick={onClick}>
+              {' '}
+              上周{' '}
+            </button>
           </div>
 
-          <div className={style.barchartStyle} ref={chartRef}></div>
+          <div id="chart" className={style.barchartStyle}></div>
 
           <div className={style.showStyle}>
             <p className={style.listtitle}>代码排行榜</p>
