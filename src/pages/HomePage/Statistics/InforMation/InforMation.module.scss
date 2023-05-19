@@ -1,7 +1,152 @@
 
-.cardStyle{
-    width: 300px;
-    height: 230px;
-    margin-right: 50px;
+.divStyle{
+    width: 20%;
+    height: 160px;
+    margin: 40px 30px;
+    background: #fff;
     float: left;
+    border-radius: 5px;
+    padding: 16px;
+    box-sizing: border-box;
+    .title{
+        font-size: 12px;
+        color: #999
+    }
+    .houreBox{
+        padding:10px 0 15px;
+        color: #333;
+        .number{
+            font-size: 32px;
+        }
+        .tips{
+            padding: 0 0 0 5px;
+            font-size: 14px;
+            color: #686565;
+        }
+    }
+    .topdivStyle{
+        display: flex;
+        flex-direction: row;
+        padding: 0 0 10px;
+        border-bottom: 1px solid #efefef;
+        font-size: 12px;
+        color: #999;
+        height: 40px;
+        .content{
+            display: flex;
+            height: 20px;
+            line-height: 20px;
+            padding: 0 20px 0 0;
+            align-items: center;
+        }
+        .green,.red{
+            padding: 0 6px;
+            color: rgb(3, 246, 76);
+        }
+        .red{
+            color: #f00
+        }
+    }
+    .areastyle{
+        flex-direction: row;
+        padding: 0 0 10px;
+        border-bottom: 1px solid #efefef;
+        float: left;
+        display: flex;
+        padding: 20px ;
+        
+    }
+    .bottombox{
+        display: flex;
+        flex-direction: row;
+        padding: 10px 0 10px 0;
+        font-size: 12px;
+        color: #686565;
+    }
+    .reportStyle{
+        padding: 10px;
+        font-size: 100px;
+        
+    }
+};
+.divStyle:hover{
+    box-shadow: 0 16px 32px 0 rgba(48, 55, 66, 0.15);
+    transform: translate(0,-5px);
+    transition-delay: 0s !important;
 }
+.chartStyle{
+    background-color: white;
+    width: 1000px;
+    height: 330px;
+    margin: 20px 10%;
+    float: left;
+    box-sizing: border-box;
+    .titleStyle{
+        border-bottom: 1px solid #efefef;
+        display: flex;
+        flex-direction: row;
+        padding: 20px  20px;
+        color: #999;
+        font-size: 12px;
+    }
+    .lastweek:before{
+        position: absolute;
+        content: "";
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        border-bottom: 4px solid #00a1d6;
+        border-top: 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+    }
+    .barchartStyle{
+        // background-color: rebeccapurple;
+        width: 650px;
+        height: 300px;
+        float: left;
+        display: flex;
+        padding: 20px ;
+        margin-right: 80px;
+    
+        
+    }
+    
+}
+
+
+.showStyle{
+    width: 250px;
+    height: 300px;
+    float: left;
+    padding: 12px;
+    .listbox{
+        
+        .liststyle {
+            height: 32px;
+            font-size: 12px;
+            color: #929292;
+            border-color: rgb(255, 255, 255);
+            align-items: center;
+            flex-direction: row;
+            .listnumber{
+                height: 16px;
+                width: 16px;
+                padding:0px 0px 1px 5px;
+                margin-right: 20px;
+                border-radius: 50%;
+                color: #373737;
+                display: flex;
+                background-color: #eeeaea;
+            }
+        
+          }
+    }
+    .listtitle{
+        font-size: medium;
+        font-weight: bolder;
+        margin-bottom: 16px;
+    }
+}
+
+
