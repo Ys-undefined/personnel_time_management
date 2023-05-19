@@ -1,12 +1,13 @@
 import {useEffect, useState} from 'react';
 import React from 'react';
-import styles from './Course.module.scss'
+import styles from './Course.module.scss';
+import dayjs from "dayjs";
 export const Course =(props)=>{
     const {courseName,//课程名称
         description,//描述
-        photoUrl,//课程url
+        courseSourceUrl,//课程url
         toPopulation,//面向人群(初学者0,熟练者1,资深2)
-        logoUrl,//Url
+        fileUrl,//Url
         classification,//课程分类（前端0/后端1/测试2/软件技能3）
         isOnline,//0线下，1线上
         createTime,
@@ -17,6 +18,8 @@ export const Course =(props)=>{
     const  [viewClassification,setViewClassification]= useState("")
     //线上线下显示
     const  [viewIsOnline,setViewIsOnline] = useState("")
+    //时间格式化
+    const createTimeFormat =dayjs(createTime).format('YYYY年MM月DD日 HH:mm');
     useEffect(()=>{
         //适应人群
         const viewPopulation =()=>{ switch (toPopulation){
@@ -45,26 +48,29 @@ export const Course =(props)=>{
             else setViewIsOnline("线上");
         }
         viewOnline()
-    })
 
-    return (
-        <div className={styles.box}>
-            <img src={photoUrl}/>
-            <div className={styles.box1}>
-                <img src={logoUrl} className={styles.logo}/>
-                <div className={styles.box2}>
-                    <p className={styles.courseName}>{courseName}</p>
-                    <p className={styles.describe}>{description}</p>
-                   <p className={styles.time}>{createTime}</p>
-                </div>
-            </div>
-            <div className={styles.box3}>
-                <p className={styles.common}>{viewClassification}</p>
-                <p className={styles.common}>建议{viewPopulation}学习</p>
-                <p className={styles.common} >{viewIsOnline}</p>
-            </div>
-        </div>
 
-    )
+    },[])
+
+
+      return (
+          <div className={styles.box}>
+              <img src={courseSourceUrl} className={styles.photo}/>
+              <div className={styles.box1}>
+                  <img src={fileUrl} className={styles.logo}/>
+                  <div className={styles.box2}>
+                      <p className={styles.courseName}>{courseName}</p>
+                      <p className={styles.describe}>{description}</p>
+                      <p className={styles.time}>{createTimeFormat}</p>
+                  </div>
+              </div>
+              <div className={styles.box3}>
+                  <p className={styles.common}>{viewClassification}</p>
+                  <p className={styles.common}>建议{viewPopulation}学习</p>
+                  <p className={styles.common} style={{borderRight: "0"}}>{viewIsOnline}</p>
+              </div>
+          </div>
+
+      )
 
 }
