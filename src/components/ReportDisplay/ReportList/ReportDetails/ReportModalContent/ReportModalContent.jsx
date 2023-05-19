@@ -2,6 +2,11 @@ import PropTypes from 'prop-types'
 import {useState} from 'react'
 import {Form, DatePicker, Input, Radio, Button,Space} from 'antd'
 import dayjs from 'dayjs'
+import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
+import {post} from '../../../../../utils/request.js'
+import PubSub from 'pubsub-js'
+
+dayjs.extend(isSameOrAfter)
 const {RangePicker}=DatePicker
 const config = {
     rules: [
@@ -39,10 +44,42 @@ export const ReportModalContent = (props) => {
     const initRiskInfo = report?report.riskInfo:null
     const initNextWeekPlan=report?report.nextWeekPlan:null
     let getDateValue;
+    const [dates,setDates] = useState(null)
+    const [value,setValue] = useState(null)
+    const disableDate = (current)=>{
+        // if (!dates){
+        //     if (dayjs(current).day()===1 && current > dayjs().endOf('day')){
+        //         return current
+        //     }else if(dayjs(current).day()===5 && current > dayjs().endOf('day')){
+        //         return current
+        //     }
+        //     return current && current > dayjs().endOf('day') && current === dayjs().day(1)
+        // }
+        console.log(dayjs(current).format("MM-DD"))
+        if (dayjs(current).day()!==1){
+            if (dayjs(current).day()!==5){
+                if (dayjs(current).isSameOrAfter(dayjs())){
+                    // console.log(dayjs(current).format("MM-DD"))
+                    return current
+                }
+            }
+        }
+    }
+    const onOpenChange =(open)=>{
+        if (open){
+            setDates([null,null])
+        }else {
+            setDates(null)
+        }
+    }
+
     switch (type){
         case "daily":
             datePicker = <Form.Item name={"time"} label="日报时间" {...config} initialValue={initDate.reportTime}>
-                             <DatePicker disabled={!!report} disabledDate={(current)=>current && current > dayjs().endOf('day')}/>
+                             <DatePicker
+                                 disabled={!!report}
+                                 disabledDate={(current)=>current && current > dayjs().endOf('day')}
+                             />
                          </Form.Item>
             getDateValue=(dateValue)=>{
                 return dayjs(dateValue).format("YYYY-MM-DD")
@@ -52,7 +89,15 @@ export const ReportModalContent = (props) => {
             datePicker = <Form.Item name={"time"} label="周报时间" {...rangeConfig} initialValue={[initDate.startTime,initDate.endTime]}>
                             <RangePicker
                                 disabled={!!report}
-                                disabledDate={(current)=>current && current > dayjs().endOf('day')}
+                                disabledDate={disableDate}
+                                onOpenChange={onOpenChange} value={dates||value}
+                                onCalendarChange={(val)=>{
+                                    setDates(val)
+                                }}
+                                onChange={(val)=>{
+                                    setValue(val)
+                                }}
+                                changeOnBlur
                             />
                          </Form.Item>
             nextWeekPlan= <Form.Item name={"nextWeekPlan"} label="下周计划内容" initialValue={initNextWeekPlan} >
@@ -76,7 +121,21 @@ export const ReportModalContent = (props) => {
                     <Input.TextArea autoSize={{minRows:3,maxRows:6}}/>
                 </Form.Item>;
 
-    function onFinish(allValues){
+    const api={
+        addOrModifyWeekly:"/api/weeklyReport/addWeeklyReport",
+        addOrModifyDaily:"/api/dailyReport/addDailyReport"
+    }
+    const addOrModifyReport=async (type,data)=>{
+        let res;
+        if (type==='daily'){
+            console.log(data)
+            res= await post(api.addOrModifyDaily,data,true)
+        }else {
+            res= await post(api.addOrModifyWeekly,data,true)
+        }
+        return res;
+    }
+    async function onFinish(allValues){
         const dateValue = allValues["time"]
         const values={
             ...allValues,
@@ -102,8 +161,13 @@ export const ReportModalContent = (props) => {
                 mergeReport[key]=mergeReport[key] === "yes"
             }
         }
-        // todo 发送请求更新|新增请求
-        // todo 请求成功更新ReportDisplay 使用PubSub,根据report是否有值添加一个字段表示新增和修改
+        delete mergeReport.submit
+        delete mergeReport.userId
+        mergeReport.isBalance=mergeReport.isBalance?"1":"0"
+        const res = addOrModifyReport(type,mergeReport)
+        if (res){
+            PubSub.publish("update_report")
+        }
         props.onOk()
     }
     return (

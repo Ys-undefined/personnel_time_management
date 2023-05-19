@@ -10,7 +10,7 @@ axios.defaults.timeout = 10000;
 
 // post请求头
 // axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
-axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
+// axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
 
 // 请求拦截器
 axios.interceptors.request.use(
@@ -67,11 +67,14 @@ export function get(url, params) {
  * post方法，对应post请求
  * @param {String} url [请求的url地址]
  * @param {Object} params [请求时携带的参数]
+ * @param {boolean} isJson [请求时携带的参数]
  */
 export function post(url, params,isJson) {
     if (!isJson){
         axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
         params=QS.stringify(params)
+    }else {
+        axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
     }
     return new Promise((resolve, reject) => {
         axios.post(url, params)
