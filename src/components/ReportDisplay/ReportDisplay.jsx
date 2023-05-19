@@ -8,48 +8,54 @@ import {useEffect, useState} from 'react'
 import dayjs from 'dayjs'
 import isBetween from 'dayjs/plugin/isBetween'
 import PubSub from 'pubsub-js'
+import {post} from '../../utils/request.js'
 
 const {Header,Footer,Content} = Layout
 dayjs.extend(isBetween)
 
+const api = {
+    getDailyReport:"/api/dailyReport/getDailyReport",
+    getWeeklyReport:"/api/weeklyReport/getWeeklyReport",
+}
 const ReportDisplay= (props)=>{
     //测试数据
-    const [reports,setReports] = useState([{
-        reportId:1,
-        content:"xxxxxx",
-        riskInfo:"xxxxxx",
-        reportTime:"2022-08-02",
-        isBalance:true
-    },{
-        reportId:2,
-        content:"aaaaaaa",
-        riskInfo:"xxxxxx",
-        reportTime:"2022-08-02",
-        isBalance:false
-    }])
+    const [reports,setReports] = useState([])
     // const [url] = useState(props.url)
     const [total,setTotal]=useState(0)
     const type = props.type
+    const handleRes = (res)=>{
+        if (res){
+            setTotal(res.data.total)
+            const {data: {records}}=res
+            const curReports=records.map(r=>{
+                r.isBalance = r.isBalance === "1";
+                return r
+            })
+            setReports(curReports)
+        }
+    }
+    const getAllReports= async (type,page)=>{
+        if (type==="daily"){
+            const res = await post(api.getDailyReport,{pageNo:page||1,pageSize:10},false)
+            handleRes(res)
+        }else {
+            const res = await post(api.getWeeklyReport,{pageNo:page||1,pageSize:10},false)
+            handleRes(res)
+        }
+    }
     useEffect(()=>{
-        //todo 请求所有数据 后set reports 和 total
+        getAllReports(type).then()
         //订阅消息
-        PubSub.subscribe("update_report",(msg,report)=>{
-            const index = reports.findIndex(r=>report.reportId===r.reportId)
-            if (index!==-1){
-                const updateReports=reports.map(r=>{
-                    if (r.reportId===report.reportId){
-                        return report
-                    }
-                    return r
-                })
-                setReports(updateReports)
-            }
+        PubSub.subscribe("update_report",()=>{
+            getAllReports(type).then()
         })
     },[])
 
-    const handleGetReports=(page,pageSize)=>{
-        console.log(page,pageSize)
-        //todo 请求数据 && setReports
+    const handleGetReports= async (page)=>{
+        await getAllReports(type,page)
+    }
+    const reset = async ()=>{
+       await getAllReports(type)
     }
     function handleFilterReports(start,end){
         const startDate = dayjs(start)
@@ -76,7 +82,7 @@ const ReportDisplay= (props)=>{
     return (
         <>
             <Header className={styles.headerStyle}>
-                <ReportHeader type={props.type} filterReportByDate={handleFilterReports}></ReportHeader>
+                <ReportHeader type={props.type} filterReportByDate={handleFilterReports} resetFuc={reset}></ReportHeader>
             </Header>
             <Content className={styles.contentStyle}>
                 <ReportList reports={reports} type={props.type} ></ReportList>

@@ -46,7 +46,7 @@ function initTimeList(isCurWeek){
 const api ={
     thisWeek:"/api/userdaily/thisWeekIdletime",
     nextWeek:"/api/userdaily/nextWeekIdletime",
-    updateIdle:"/api/userdaily/updateIdletime"
+    updateIdle:"/api/userdaily/updateIdletime",
 }
 export const SpareTime = () => {
     const [timeList,setTimeList] =useState(initTimeList(true))

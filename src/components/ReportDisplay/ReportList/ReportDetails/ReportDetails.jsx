@@ -17,7 +17,7 @@ export const ReportDetails = (props) => {
         setOpen(false)
     }
     if (report){
-        modalButton=<Button type={"link"} key={report.reportId} onClick={()=>{setOpen(true)}}>详情</Button>
+        modalButton=<Button type={"link"} key={report.id} onClick={()=>{setOpen(true)}}>详情</Button>
         modalContent=<Modal
             title="查看或修改"
             centered

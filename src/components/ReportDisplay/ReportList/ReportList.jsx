@@ -113,7 +113,7 @@ export const ReportList = (props) => {
     return (
         <>
             {addButton}
-            <Table columns={columns} dataSource={reports} pagination={false} rowKey={"reportId"}/>
+            <Table columns={columns} dataSource={reports} pagination={false} rowKey={"id"}/>
         </>
     )
 }

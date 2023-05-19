@@ -4,18 +4,20 @@ import PropTypes from 'prop-types'
 
 const {RangePicker} = DatePicker
 
-const disableDate=(current)=> {
-    return current && current > dayjs().endOf('day')
-}
+
 
 const ReportHeader=(props)=>{
+
+    const disableDate=(current)=> {
+        return current && current > dayjs().endOf('day')
+    }
     const filterReportByDate = props.filterReportByDate
     const [form] = Form.useForm()
     function resetDate(){
         // dateFormRef.current.setFieldValue("date-range-picker",[])
         // dateFormRef.current.resetFields()
         form.resetFields()
-        //todo 发送默认请求
+        props.resetFuc()
     }
     function onFinish(fieldsValue){
         const rangeValue = fieldsValue['date-range-picker']
@@ -34,7 +36,9 @@ const ReportHeader=(props)=>{
                 form={form}
             >
                 <Form.Item name="date-range-picker" label="日期范围" >
-                    <RangePicker disabledDate={disableDate}/>
+                    <RangePicker
+                        disabledDate={disableDate}
+                    />
                 </Form.Item>
                 <Form.Item name="submit">
                     <Button type="primary" htmlType="submit">查询</Button>
@@ -48,7 +52,8 @@ const ReportHeader=(props)=>{
 }
 
 ReportHeader.propTypes={
-    filterReportByDate:PropTypes.func.isRequired
+    filterReportByDate:PropTypes.func.isRequired,
+    resetFuc:PropTypes.func.isRequired
 }
 
 export default ReportHeader
