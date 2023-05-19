@@ -6,10 +6,16 @@ import {BrowserRouter,createBrowserRouter,createHashRouter} from 'react-router-d
 import { RouterProvider } from 'react-router-dom'
 import router from './router'
 import App from './App'
+// 引入仓库
+// import store from './pages/Login/store'
+// import {Provider} from 'react-redux'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
-    <BrowserRouter>
+  
+        <BrowserRouter>
             <App/>
-    </BrowserRouter>
+        </BrowserRouter>
+  
+   
 
 )

@@ -5,7 +5,7 @@ import {Outlet, useLocation} from 'react-router-dom'
 import SideNavi from '../../../components/SideNavi/SideNavi.jsx'
 import course_style from '../CourseList/courseList.module.scss'
 import {PlusCircleOutlined} from '@ant-design/icons'
-
+import {post} from '../../../utils/request'
 const items=[
     {
         label:'空闲时段',
@@ -16,13 +16,21 @@ const items=[
         key:'/clock-in'
     },
     {
-        label: '我的设置',
+        label: '个人中心',
         key:'/user-info'
     },
     
 ]
+const api={
+    modifyUser:"http://123.56.27.142:8888/user/getUser"
+  }
 export const Schedule = () => {
     const location = useLocation()
+//     //获取token值
+//   const token=localStorage.getItem('token')
+//   console.log(token)
+//   const res= post(api.modifyUser, token, false)
+//   console.log(res)
     return (
         <>
             <Sider className={styles.siderStyle} >
