@@ -2,34 +2,39 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 40vh;
-  max-height: 50vh;
-  border: black;
-  border-bottom-width: 2px;
-  padding: 20px;
+  margin: 20px;
+  box-shadow: 0px 0px 20px 0px rgba(0,0,0,0.5);
 }
 .photo{
-
+  width: 221px;
+  height: 159px;
+  border:1px solid #eeeeee;
 }
-//标题等内容
+
 .box1{
   display: flex;
   flex-direction: row;
   min-width: 120px;
   padding-bottom: 10px;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  border:1px solid #eeeeee;
+  width: 221px;
 }
 .logo{
   border-radius: 100%;
-  max-height: 50px;
-  max-width: 50px;
-  padding-top: 20px;
-
+  height: 40px;
+  width: 40px;
+  margin-bottom: 50px;
+  margin-left: 10px;
 }
 .box2{
   display: flex;
   flex-direction: column;
   justify-content:center;
   padding-left: 10px;
+  flex-grow: 1;
 }
 .courseName{
    flex-basis: fit-content;
@@ -41,7 +46,7 @@
   padding-bottom: 10px;
 }
 .describe{
-   font-size: 10px;
+   font-size: 14px;
    line-height: 20px;
    color: #7f7c7c;
   text-align: left;
@@ -51,27 +56,38 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  height: 40px;
 }
 .time{
   line-height: 20px;
   text-align: left;
   color: black;
-  font-size: 18px;
+  font-size: 14px;
+  height: 38px;
+  box-sizing: border-box;
+  padding-top: 10px;
 }
 .box3{
   display: flex;
   justify-content: left;
   flex-direction: row;
   background-color: #eeeeee;
-  border: #7f7c7c;
-
+  border:1px solid #eeeeee;
+  justify-content: center;
+  align-items: center;
+  width: 221px;
 }
 .common{
   flex-basis: fit-content;
-  line-height: 20px;
-  font-size: 18px;
-  padding: 10px;
+  line-height: 30px;
+  font-size: 14px;
   flex-grow: 1;
   white-space: nowrap;
+  height: 30px;
+  box-sizing: border-box;
+  border-right: 1px solid #d5d4d4;
+  margin: 5px;
+  box-sizing: border-box;
+  width: 30px;
 }
 
