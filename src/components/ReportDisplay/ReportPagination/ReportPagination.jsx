@@ -5,8 +5,8 @@ import PropTypes from 'prop-types'
 const ReportPagination=(props)=> {
     const total = props.total
     const changePage = props.changePage
-    function onChange(page,pageSize){
-        changePage(page,pageSize);
+    function onChange(page){
+        changePage(page);
     }
     return (
         <>
@@ -15,7 +15,7 @@ const ReportPagination=(props)=> {
                 showSizeChanger={false}
                 showQuickJumper
                 showTotal={(total) => `共 ${total} 条记录`}
-                hideOnSinglePage={true}
+                hideOnSinglePage={false}
                 onChange={onChange}
                 defaultCurrent={1}
             />
