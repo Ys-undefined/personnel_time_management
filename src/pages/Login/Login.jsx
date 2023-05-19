@@ -5,11 +5,8 @@ import {LockOutlined,UserOutlined} from '@ant-design/icons'
 import { useState,useRef, useEffect } from 'react'
 import Cookies from 'js-cookie'
 import {post} from '../../utils/request.js'
-// import storage from './storageUtils'
-// import memoryUser from './memoryUser'
+
 import Axios from 'axios'
-
-
 
 export const Login = () => {
   const api={
@@ -21,9 +18,9 @@ export const Login = () => {
         navigate("/home")
     }
 
- 
   const [form] = Form.useForm();
-
+  form.setFieldValue({
+    userName:'123'})
       const autoLogin=(param)=>{
         return Axios.post(base.host+base.login,param)
     }
@@ -35,39 +32,13 @@ export const Login = () => {
         if (res){
             const user=res.data
             console.log(user)
-            //startTime是向服务器发送请求响应的时间
-            // const startTime='1684463874159'
-            // const inputTime=parseInt(startTime)+parseInt(10500*1000)//设置每50秒存储的值过期
-            // const nowTime=+new Date().getTime()
-            // // console.log(inputTime)
-            // // console.log(nowTime)
-            // const times=(inputTime-nowTime)/1000
-            // // console.log(times)
-            // 
-            // console.log(res.data.photoUrl)
-            
-            // Cookies.set("token",res.data.token,{ expires: 3, path: '' })
-            // memoryUser.user=user
-            // storage.saveUser(user)
-            //存储用户名
-            localStorage.setItem("name", JSON.stringify(user.userName));
-            localStorage.setItem("url", JSON.stringify(user.photoUrl));
-            localStorage.setItem("nickName",JSON.stringify(user.nickName))
-            localStorage.setItem("token",user.token)
-       
-            //设定过期时间什么时间都可以，如果设定时间-现在时间>0证明没有过期，如果小于现在时间证明过期了
-            // if(times < 0){
-            //   //缓存过期，清除缓存，跳到登录页面
-            //     localStorage.removeItem(user);
-            //     console.log('登录失败',user.userName);
-            //     navigate(" ")
-            //   }else{
-              //缓存未过期，返回值
-              console.log('登录成功',user.userName);
-              navigate("/home")
+            Cookies.set('token',user.token,{expires:1,path:''})
+            Cookies.set('name',user.userName)
+            Cookies.set('photoUrl',user.photoUrl)
+            Cookies.set('nickName',user.nickName)
+            console.log('登录成功',user.userName);
+            navigate("/home")
             // }  
-        
-            
            
         }
         
@@ -86,13 +57,6 @@ export const Login = () => {
        
     }
 
-    // const onFinishFailed=(errorInfo)=>{
-    //   console.log('Failed:',errorInfo)
-    // }
-
-  
-   
-   
     return (
     <div className={style.login}>
       <div className={style.login_left}>
@@ -126,7 +90,7 @@ export const Login = () => {
              }
          ]}
          >
-            <Input prefix={<UserOutlined className="site-form-item-icon"  />} placeholder="请输入用户名" />
+            <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="请输入用户名" />
          </Form.Item>
          <Form.Item
              label="密码"

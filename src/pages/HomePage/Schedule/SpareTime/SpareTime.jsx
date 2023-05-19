@@ -3,6 +3,7 @@ import dayjs from 'dayjs'
 import {useEffect, useState} from 'react'
 import {Radio, Space, Tag} from 'antd'
 import {debounce} from 'lodash'
+import {get,post} from '../../../../utils/request.js'
 
 const { CheckableTag } = Tag
 function initTimeList(isCurWeek){
@@ -42,14 +43,31 @@ function initTimeList(isCurWeek){
     }
     return groupedArray
 }
-
+const api ={
+    thisWeek:"/api/userdaily/thisWeekIdletime",
+    nextWeek:"/api/userdaily/nextWeekIdletime",
+    updateIdle:"/api/userdaily/updateIdletime"
+}
 export const SpareTime = () => {
     const [timeList,setTimeList] =useState(initTimeList(true))
-    useEffect(()=>{
-        //todo 请求timeList
+    const getThisWeek = async ()=>{
+        const res = await get(api.thisWeek,null)
+        console.log(res.data)
+        if (res){
+            setTimeList(res.data)
+        }
+    }
+    const getNextWeek = async ()=>{
+        const res = await get(api.nextWeek,null)
+        if (res){
+            setTimeList(res.data)
+        }
+    }
+    useEffect( ()=>{
+        getThisWeek()
     },[])
-    const handleChange = (period,checked)=>{
-        // 根据period 设置timeList
+
+    const handleChange =async (period,checked)=>{
         const temp=timeList.map(d=>{
             return d.map(p => {
                 if (p.id === period.id) {
@@ -58,10 +76,12 @@ export const SpareTime = () => {
                 return p
             })
         })
-        // console.log(temp)
-        setTimeList(temp)
+        const res = await post(api.updateIdle,timeList,true)
+        if (res){
+            setTimeList(temp)
+        }
     }
-    const day = timeList.map((d,index)=>{
+    const day = ()=> timeList.map((d,index)=>{
         return <div key={index} className={styles.day}>
             {
                 d.map(period=>{
@@ -86,10 +106,10 @@ export const SpareTime = () => {
     const changeWeek=(e)=>{
         if (e.target.value===1){
             setTimeList(initTimeList(true))
-            //todo 发送请求获取本周
+            getThisWeek()
         }else {
             setTimeList(initTimeList(false))
-            //todo 发送请求获取下周
+            getNextWeek()
         }
     }
     return (
@@ -123,7 +143,7 @@ export const SpareTime = () => {
                     }
                 </div>
                 <div className={styles.week}>
-                    { day }
+                    { day() }
                 </div>
             </div>
 

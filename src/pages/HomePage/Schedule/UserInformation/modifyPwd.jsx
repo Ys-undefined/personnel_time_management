@@ -86,7 +86,6 @@ export const ModifyPwd = () => {
                     name="confirm"
                     label="确认新密码"
                     dependencies={['password']}
-                    hasFeedback
                     rules={[
                         {
 

@@ -2,7 +2,7 @@ import React from 'react';
 import {Row } from 'antd';
 import {Course} from "../../../../components/Course/Course.jsx";
 import {useState} from 'react'
-export const BackendCourse = () => {
+export const MyCourse = () => {
     const[courseList,setData] = useState([
         {courseName:"react课程",
             description:"react课程描述",photoUrl:"https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
@@ -12,18 +12,6 @@ export const BackendCourse = () => {
             description:"js课程描述",photoUrl:"https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
             toPopulation:2,logoUrl:"https://xsgames.co/randomusers/avatar.php?g=pixel",
             classification:0,isOnline:0,createTime:"2023/5/15 20:00:20"},
-        {courseName:"js课程",
-            description:"js课程描述",photoUrl:"https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-            toPopulation:0,logoUrl:"https://xsgames.co/randomusers/avatar.php?g=pixel",
-            classification:1,isOnline:1,createTime:"2023/5/15 20:00:20"},
-        {courseName:"js课程",
-            description:"js课程描述",photoUrl:"https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-            toPopulation:0,logoUrl:"https://xsgames.co/randomusers/avatar.php?g=pixel",
-            classification:1,isOnline:1,createTime:"2023/5/15 20:00:20"},
-        {courseName:"js课程",
-            description:"js课程描述",photoUrl:"https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
-            toPopulation:0,logoUrl:"https://xsgames.co/randomusers/avatar.php?g=pixel",
-            classification:1,isOnline:1,createTime:"2023/5/15 20:00:20"},
         {courseName:"js课程",
             description:"js课程描述",photoUrl:"https://gw.alipayobjects.com/zos/rmsportal/JiqGstEfoWAOHiTxclqi.png",
             toPopulation:0,logoUrl:"https://xsgames.co/randomusers/avatar.php?g=pixel",
