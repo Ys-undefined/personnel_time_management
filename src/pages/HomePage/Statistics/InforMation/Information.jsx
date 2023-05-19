@@ -289,10 +289,7 @@ export const InforMation = () => {
           <div className={style.titleStyle}>
             <p style={{ marginRight: 800 }}>代码量</p>
             <p style={{ marginRight: 20 }}>本周</p>
-            <button id="lastweek" onClick={onClick}>
-              {' '}
-              上周{' '}
-            </button>
+            <p> 上周 </p>
           </div>
 
           <div id="chart" className={style.barchartStyle}></div>
