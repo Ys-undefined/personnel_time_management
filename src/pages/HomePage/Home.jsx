@@ -1,5 +1,4 @@
 import {Layout, Menu ,Avatar, Space } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
 const { Header } = Layout;
 import styles from './home.module.scss'
 import {post} from '../../utils/request.js'
@@ -22,7 +21,10 @@ const items =[
     {
         label:'分享课表',
         key: '/course-list',
-
+    },
+    {
+    label: "统计信息",
+        key: "/information"
     }
 ];
 
@@ -48,11 +50,8 @@ export const Home = () => {
     const getUserInfo=async () =>{ {
         const res= await post(api.getUser,null,false)
             if(res){
-                console.log('主页请求成功')
-                console.log(res.data)
                 Cookies.set('photoUrl',res.data.photoUrl)
                 Cookies.set('name',res.data.nickName)
-
             }
     }
 
