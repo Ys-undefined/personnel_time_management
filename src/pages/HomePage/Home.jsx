@@ -1,10 +1,8 @@
 import {Layout, Menu ,Avatar, Space } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
 const { Header } = Layout;
 import {Outlet, useNavigate,useLocation} from 'react-router-dom'
 import styles from './home.module.scss';
-import { post } from '../../utils/request.js';
-import {useEffect} from 'react'
+import {useEffect,useState} from 'react'
 import Cookies from 'js-cookie';
 const items = [
   {

@@ -1,11 +1,14 @@
 import {Pagination} from 'antd'
 import PropTypes from 'prop-types'
+import {useState} from 'react'
 
 
 const ReportPagination=(props)=> {
     const total = props.total
     const changePage = props.changePage
+    const [current,setCurrent] = useState(1)
     function onChange(page){
+        setCurrent(page)
         changePage(page);
     }
     return (
@@ -15,9 +18,9 @@ const ReportPagination=(props)=> {
                 showSizeChanger={false}
                 showQuickJumper
                 showTotal={(total) => `共 ${total} 条记录`}
-                hideOnSinglePage={false}
+                hideOnSinglePage={true}
                 onChange={onChange}
-                defaultCurrent={1}
+                current={current}
             />
         </>
     )

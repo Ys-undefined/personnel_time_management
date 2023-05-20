@@ -3,6 +3,7 @@ import {Button, Form, Input, Select,} from 'antd';
 import {get, post} from '../../../../utils/request'
 import {useEffect, useState} from 'react';
 import style from '../UserInformation/UserInformation.module.scss'
+import {message} from 'antd'
 
 export const ModifyUser = () => {
   const [form] = Form.useForm();
@@ -13,11 +14,6 @@ export const ModifyUser = () => {
     modifyPwd:'/api/user/updatePwd',
     getCollege:"/api/user/getCollege"
   }
-
-
-  const [userInfo,setUserInfo] = useState({})
-  //请求用户信息
-
   //获取学院信息
   const [college,setCollege] = useState([])
   const college1 = async ()=>{
@@ -31,19 +27,18 @@ export const ModifyUser = () => {
       })
       setCollege(colleges)
     }
-    getUserInfo().then(r=>{
-      console.log(r)})
+
   }
 
-  const getUserInfo= async () =>{
+  const setFormInfo= async () =>{
     const res= await post(api.getUser,null,false)
     if (res){
       const info= res.data
-      setUserInfo({...info})
-      return info
+      form.setFieldsValue(info)
     }
   }
   useEffect(() => {
+    setFormInfo().then()
     college1().then()
   }, [])
 
@@ -57,7 +52,8 @@ export const ModifyUser = () => {
   const onFinish = async(values) => {
         const res= await post(api.modifyUser, values, true)
         if(res){
-          await getUserInfo()
+          message.success("修改成功",3)
+          await setFormInfo()
         }
   };
   //清除输入内容
@@ -76,7 +72,6 @@ export const ModifyUser = () => {
             labelCol={{ span: 6 }}
             wrapperCol={{ span: 12 }}
             onFinish={onFinish}
-            initialValues={{nickName:userInfo.nickName,photoUrl:userInfo.photoUrl}}
           >
             <Form.Item
               name="nickName"
