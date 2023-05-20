@@ -5,21 +5,22 @@ import {LockOutlined,UserOutlined} from '@ant-design/icons'
 import Cookies from 'js-cookie'
 import {post} from '../../utils/request.js'
 
-// import Axios from 'axios'
+import Axios from 'axios'
 
 export const Login = () => {
   const api={
     login:"http://123.56.27.142:8888/user/login"
   }
    const navigate = useNavigate()
-
+    //跳转到后台
+    function login(){
+        navigate("/home")
+    }
 
   const [form] = Form.useForm();
-  // form.setFieldValue({
-  //   userName:'123'})
-  //     const autoLogin=(param)=>{
-  //       return Axios.post(base.host+base.login,param)
-  //   }
+  form.setFieldValue({
+    userName:'123'})
+
     //该事件是为了收集后台数据
     const onFinish=async(values)=>{
         console.log('Received values of form:', values);
@@ -29,9 +30,6 @@ export const Login = () => {
             const user=res.data
             console.log(user)
             Cookies.set('token',user.token,{expires:1,path:''})
-            Cookies.set('name',user.userName)
-            Cookies.set('photoUrl',user.photoUrl)
-            Cookies.set('nickName',user.nickName)
             console.log('登录成功',user.userName);
             navigate("/home")
             // }  
@@ -56,7 +54,7 @@ export const Login = () => {
     return (
     <div className={style.login}>
       <div className={style.login_left}>
-        <img className={style.login_img} src="../src/assets/login.png"></img>
+        <img className={style.login_img} src='../src/assets/login.png'></img>
       </div>
      
         <div className={style.login_form}>
@@ -71,18 +69,19 @@ export const Login = () => {
          onFinish={onFinish}
       
         >
-          <Form.Item
-            label="用户名"
-            name="userName"
-            rules={[
-              {
+         <Form.Item
+         label="用户名"
+         name="userName"
+         
+         rules={[
+             {
                 //  required:true,
                  message:'Please input your Username!'
 
              },
-             {
-              // pattern: /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/,message: '请输入正确的手机号'
-             }
+             // {
+             //  pattern: /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/,message: '请输入正确的手机号'
+             // }
          ]}
          >
             <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="请输入用户名" />
@@ -92,10 +91,10 @@ export const Login = () => {
              name="password"
              
              rules={[
-               {
-                 
-                 message: 'Please input your Password!',
-               },
+                 {
+                     pattern:
+                         /^(?![0-9]+$)(?![a-zA-Z]+$)[a-zA-Z0-9]{6,16}$/, message:'输入密码等级太低，且不少于6位'
+                 }
              ]}
            >
              <Input
@@ -122,6 +121,8 @@ export const Login = () => {
         </div>
        
     </div>
-  );
-};
+    
+    )
+}
 export default Login;
+

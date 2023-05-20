@@ -1,33 +1,32 @@
 import {Layout, Menu ,Avatar, Space } from 'antd';
-import { UserOutlined } from '@ant-design/icons';
 const { Header } = Layout;
-import {Outlet, useNavigate,useLocation} from 'react-router-dom'
-import styles from './home.module.scss';
-import { post } from '../../utils/request.js';
-import {useEffect} from 'react'
+import styles from './home.module.scss'
+import {post} from '../../utils/request.js'
 import Cookies from 'js-cookie';
-const items = [
-  {
-    label: '个人日程',
-    key: '/schedule',
-  },
-  {
-    label: '日报周报',
-    key: '/record',
-  },
-  {
-    label: '分享课表',
-    key: '/course-list',
-  },
-  {
-    label: '我的统计信息',
-    key: '/information',
-  },
-];
-export const Home = () => {
-  const [current, setCurrent] = useState('/schedule');
-  //发送请求获取数据
+import {useEffect, useState} from 'react'
+import {Outlet, useLocation, useNavigate} from 'react-router-dom'
+const api= {
+    getUser:"/api/user/getUser",
+    loginOut:"/api/user/logout"
+}
+const items =[
+    {
+        label: '个人日程',
+        key: '/schedule',
+    },
+    {
+        label: '日报周报',
+        key: '/record',
+    },
+    {
+        label:'分享课表',
+        key: '/course-list',
 
+    }
+];
+
+export const Home = () => {
+    const [current, setCurrent] = useState('/schedule');
     const location = useLocation();
     useEffect(()=>{
         setCurrent("/"+location.pathname.split("/")[2])
@@ -37,7 +36,7 @@ export const Home = () => {
         setCurrent(e.key);
         navigate("/home"+e.key)
     };
-
+    
     //startTime是向服务器发送请求响应的时间
     // const startTime='1684463874159'
     // const inputTime=parseInt(startTime)+parseInt(29500*1000)//设置每50秒存储的值过期
@@ -45,21 +44,26 @@ export const Home = () => {
 
     // const times=(inputTime-nowTime)/1000
     // console.log(times)
-    function userInformation (){
-        navigate("/home/schedule/user-info")
-      }
+    const getUserInfo=async () =>{ {
+        const res= await post(api.getUser,null,false)
+            if(res){
+                console.log('主页请求成功')
+                console.log(res.data)
+                Cookies.set('photoUrl',res.data.photoUrl)
+                Cookies.set('name',res.data.nickName)
+
+            }
+    }
+
+    }
       //退出登录
-    function loginOut(){
-      // localStorage.removeItem(user);
-      navigate('/')
+    const loginOut=async () =>{
+        const res= await post(api.loginOut,null,false)
+        if(res){
+            navigate('/ ')
+        }
       }
-      // if(times < 0){
-      //   //缓存过期，清除缓存，跳到登录页面
-      //     localStorage.removeItem(user);
-      //     console.log('个人中心',user.userName);
-      //     navigate("/ ")
-          
-      //   }
+      getUserInfo()
     return (
         <>      
                 <Layout>
@@ -73,8 +77,8 @@ export const Home = () => {
                          </Space>
                          </div>   
                            <div className='username'> {Cookies.get('name')} </div> 
-                           <div className={styles.select}>
-                            <div className={styles.userInformation}><a onClick={userInformation}>个人中心</a></div>
+                           <div >
+                            {/*<div className={styles.userInformation}><a onClick={userInformation}>个人中心</a></div>*/}
                             <div className={styles.loginOut}><a onClick={loginOut}>退出登录</a></div>
                             </div>       
                         </div>  
