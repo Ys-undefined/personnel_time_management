@@ -4,9 +4,7 @@ import {Button, Form, Input, Select, } from 'antd';
 import {post,get} from '../../../../utils/request'
 import { useState,useEffect } from 'react';
 import style from '../UserInformation/UserInformation.module.scss'
-import Cookies from 'js-cookie';
 
-  //取数据
 
 export const ModifyUser = () => {
   const [form] = Form.useForm();
@@ -15,55 +13,68 @@ export const ModifyUser = () => {
     getUser:"/api/user/getUser",
     modifyUser:'/api/user/updateUserInfo',
     modifyPwd:'/api/user/updatePwd',
-    getCollege:"/api/user/getCollege"
+    getCollege:"/api/user/getCollege",
+    loadphotoUrl:"/api//user/uploadPhoto"
     
   }
-  const [userInfo,setUserInfo] = useState({})
+
   //请求用户信息
   const getUserInfo=async () =>{
     const res= await post(api.getUser,null,false)
-    setUserInfo(res.data)
+    // setUserInfo(res.data)
+
     form.setFieldsValue({
-      'nickName':userInfo.nickName,
-      'photoUrl':userInfo.photoUrl,
-      'level':userInfo.level,
-      'major':userInfo.major,
+      'nickName':res.data.nickName,
+      'photoUrl':res.data.photoUrl,
+      'level':res.data.level,
+      'major':res.data.major,
+      'collegeName':res.data.collegeName
     })
 }
-  //加载用户信息
-
-  
+  //上传头像
+  const updatephotoUrl=async () => {
+    const res = await post(api.loadphotoUrl, photoUrl, false)
+    if(res){
+      console.log('上传头像成功')
+    }
+  }
   //获取学院信息
   const [college,setCollege] = useState([])
+
+
   const college1 = async ()=>{
     const res = await get(api.getCollege,null)
     if (res){
       const colleges = res.data.map(c=>{
+        // console.log('学院名',c.collegeId)
         return {
           label:c.collegeName,
-          value:c.collegeId
+          value:c.collegeName
         }
       })
       setCollege(colleges)
+
     }
   }
+
+
+
   useEffect(() => {
-     post(api.getUser,null,false).then(res=>{
-      setUserInfo({
-        nickName:"1",
-        photoUrl:"2",
-        level:"3",
-        major:"4"
-      })
+      post(api.getUser,null,false).then(res=>{
+      console.log('个人中心请求成功')
+      console.log(res.data)
       form.setFieldsValue({
-        'nickName':"userInfo.nickName",
-        'photoUrl':userInfo.photoUrl,
-        'level':userInfo.level,
-        'major':userInfo.major,
+        'nickName':res.data.nickName,
+        'photoUrl':res.data.photoUrl,
+        'level':res.data.level,
+        'major':res.data.major,
+        'collegeName':res.data.collegeName
       })
     })
-    console.log(userInfo);
+    //请求学院信息
     college1()
+    //请求用户头像
+    updatephotoUrl()
   }, [])
   
 
@@ -78,10 +89,15 @@ export const ModifyUser = () => {
 
   const onFinish = async(values) => {
         const {collegeId,collegeName,level,major,nickName,photoUrl} = values
+        console.log(values)
         const res= await post(api.modifyUser, values, true)
+        console.log(res)
+        //请求成功后还是走一遍获取用户信息的途径
         if(res){
           getUserInfo()
+
         }
+
   };
 
   //清除输入内容
@@ -109,12 +125,24 @@ export const ModifyUser = () => {
           >
             <Form.Item
               name="nickName"
-              label= "用户名"
+              label= "用户昵称"
               rules={[{ message: 'Please input your nickname!', whitespace: true },
               {
-                pattern: /^\w+$/, message: '用户名必须由数字、字母、下划线组成'
-              }]}
-              initialValue={userInfo.nickName} 
+                pattern:/^[A-Za-z0-9]+$/ ,message: '请输入数字和字母组合'
+              },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (getFieldValue('nickName')!='') {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error('请输入用户名'));
+                  },
+                })
+
+
+              ]}
+
+
             >
               <Input />
             </Form.Item>
@@ -126,14 +154,14 @@ export const ModifyUser = () => {
                 // pattern: /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\*\+,;=.]+$/,
                 // message: '请输入正确的地址链接'
               }]}
-              initialValue={userInfo.photoUrl}
+
             >
               <Input />
             </Form.Item>
             <Form.Item
               name="collegeName"
               label="学院"
-              initialValue={userInfo.collegeName}
+
             >
               <Select options={college} onChange={handleChange} placeholder="select your college" >
               </Select>
@@ -145,7 +173,7 @@ export const ModifyUser = () => {
               name="major"
               label="专业"
               rules={[{ message: ' ', whitespace: true }]}
-              initialValue={userInfo.major}
+
             >
               <Input />
             </Form.Item>
@@ -153,8 +181,8 @@ export const ModifyUser = () => {
             <Form.Item
               name="level"
               label="年级"
-              rules={[{ message: 'Please select grad!' }]}
-              initialValue={userInfo.level}
+              // rules={[{ message: 'Please select grad!' }]}
+
             >
               <Input />
 
