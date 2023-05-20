@@ -1,29 +1,25 @@
-import {useNavigate,useLocation,useSearchParams, useLoaderData} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom'
 import style from './Login.module.scss'
-import {Button,Checkbox,Form,Input,message } from 'antd'
+import {Button,Form,Input,message } from 'antd'
 import {LockOutlined,UserOutlined} from '@ant-design/icons'
-import { useState,useRef, useEffect } from 'react'
 import Cookies from 'js-cookie'
 import {post} from '../../utils/request.js'
 
-import Axios from 'axios'
+// import Axios from 'axios'
 
 export const Login = () => {
   const api={
     login:"http://123.56.27.142:8888/user/login"
   }
    const navigate = useNavigate()
-    //跳转到后台
-    function login(){
-        navigate("/home")
-    }
+
 
   const [form] = Form.useForm();
-  form.setFieldValue({
-    userName:'123'})
-      const autoLogin=(param)=>{
-        return Axios.post(base.host+base.login,param)
-    }
+  // form.setFieldValue({
+  //   userName:'123'})
+  //     const autoLogin=(param)=>{
+  //       return Axios.post(base.host+base.login,param)
+  //   }
     //该事件是为了收集后台数据
     const onFinish=async(values)=>{
         console.log('Received values of form:', values);
