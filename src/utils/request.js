@@ -72,15 +72,10 @@ export function post(url, params,isJson) {
     if (!isJson){
         axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';
         params=QS.stringify(params)
-<<<<<<< HEAD
     }else{
-=======
-    }else {
->>>>>>> c6e3562899c0f72abc54d1e02fd4426df35bcd0f
         axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
     }
     return new Promise((resolve, reject) => {
-        console.log(axios.defaults.headers);
         axios.post(url, params)
             .then(res => {
                 resolve(res.data);
