@@ -14,7 +14,6 @@ export const ModifyUser = () => {
     modifyPwd:'/api/user/updatePwd',
     getCollege:"/api/user/getCollege",
     loadphotoUrl:"/api//user/uploadPhoto"
-
   }
 
   //请求用户信息

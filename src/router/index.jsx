@@ -64,9 +64,6 @@ const routes =[
                                 path:'/home/schedule/user-info/pwd',
                                 element: <ModifyPwd/>
                             }
-                           
-
-
                          ]
                     }
                 ]

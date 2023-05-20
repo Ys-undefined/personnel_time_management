@@ -31,7 +31,7 @@ axios.interceptors.response.use(
             return Promise.resolve(response);
         } 
         if (response.data.code === 401) {
-            message.error(response.data.msg,3).then(r=>r)
+            message.warning(response.data.msg,3).then(r=>r)
             return false
         }else {
             message.error(response.data.msg,3).then(r=>r)
@@ -86,14 +86,3 @@ export function post(url, params,isJson) {
     });
 }
 
-export function del(url, params) {
-    return new Promise((resolve, reject) => {
-        axios.delete(url, QS.stringify(params))
-            .then(res => {
-                resolve(res.data);
-            })
-            .catch(err => {
-                reject(err.data)
-            })
-    });
-}
