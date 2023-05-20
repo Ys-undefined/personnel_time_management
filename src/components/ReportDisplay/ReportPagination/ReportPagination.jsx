@@ -19,6 +19,7 @@ const ReportPagination=(props)=> {
                 showQuickJumper
                 showTotal={(total) => `共 ${total} 条记录`}
                 hideOnSinglePage={true}
+                pageSize={8}
                 onChange={onChange}
                 current={current}
             />
@@ -27,6 +28,6 @@ const ReportPagination=(props)=> {
 }
 ReportPagination.propTypes={
     total:PropTypes.number.isRequired,
-    changePage:PropTypes.func.isRequired
+    changePage:PropTypes.func.isRequired,
 }
 export default ReportPagination
