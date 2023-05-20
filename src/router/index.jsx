@@ -7,6 +7,9 @@ import {ClockIn} from '../pages/HomePage/Schedule/ClockIn/ClockIn'
 import {Navigate} from 'react-router-dom'
 import {DailyReport} from '../pages/HomePage/Report/DailyReport/DailyReport'
 import {WeeklyReport} from '../pages/HomePage/Report/WeeklyReport/WeeklyReport'
+import { InforMation } from '../pages/HomePage/Statistics/InforMation/Information'
+
+
 //分享课程
 import {CourseList} from '../pages/HomePage/CourseList/CourseList.jsx'
 import { BackendCourse} from '../pages/HomePage/CourseList/BackendCourse/BackendCourse'
@@ -83,6 +86,10 @@ const routes =[
                 ]
             },
             {
+                path: "/home/information",
+                element:<InforMation/>
+            },
+            {
                 path: "/home/course-list",
                 element: <CourseList/>,
                 children:[
@@ -106,7 +113,8 @@ const routes =[
                 ]
             },
         ]
-    }
+    },
+
 ]
 
 export default routes

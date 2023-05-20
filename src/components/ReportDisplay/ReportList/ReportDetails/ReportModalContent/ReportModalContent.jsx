@@ -128,7 +128,6 @@ export const ReportModalContent = (props) => {
     const addOrModifyReport=async (type,data)=>{
         let res;
         if (type==='daily'){
-            console.log(data)
             res= await post(api.addOrModifyDaily,data,true)
         }else {
             res= await post(api.addOrModifyWeekly,data,true)

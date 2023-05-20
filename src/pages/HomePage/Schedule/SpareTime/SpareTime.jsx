@@ -92,7 +92,7 @@ export const SpareTime = () => {
                                       style={{backgroundColor:period.idle?'':'#ebdbc5',fontSize:'15px'}}
                                       onChange={debounce((checked)=>{
                                           handleChange(period,checked)
-                                      },300)}
+                                      },100)}
                         >{period.time}</CheckableTag>
                     )
                 })
