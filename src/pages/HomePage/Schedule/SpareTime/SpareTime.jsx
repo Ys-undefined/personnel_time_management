@@ -14,7 +14,7 @@ function initTimeList(isCurWeek){
         let day = {
             id: index + 1,
             date: curDay.format("YYYY-MM-DD"),
-            time: `${preTime.format("H:00")}-${curTime.format("H:00")}`,
+            // time: `${preTime.format("H:00")}-${curTimdebouncee.format("H:00")}`,
             idle: preTime.hour() >= 19
         }
         if ((index + 1) % 9 === 0) {
@@ -52,6 +52,7 @@ export const SpareTime = () => {
     const [timeList,setTimeList] =useState(initTimeList(true))
     const getThisWeek = async ()=>{
         const res = await get(api.thisWeek,null)
+        console.log(res.data)
         if (res){
             setTimeList(res.data)
         }
@@ -91,7 +92,7 @@ export const SpareTime = () => {
                                       style={{backgroundColor:period.idle?'':'#ebdbc5',fontSize:'15px'}}
                                       onChange={debounce((checked)=>{
                                           handleChange(period,checked)
-                                      },300)}
+                                      },100)}
                         >{period.time}</CheckableTag>
                     )
                 })

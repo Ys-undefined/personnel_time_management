@@ -5,6 +5,7 @@ import {Outlet, useLocation} from 'react-router-dom'
 import SideNavi from '../../../components/SideNavi/SideNavi.jsx'
 import course_style from '../CourseList/courseList.module.scss'
 import {PlusCircleOutlined} from '@ant-design/icons'
+import {post} from '../../../utils/request'
 
 const items=[
     {
@@ -20,13 +21,15 @@ const items=[
         key:'/my-course'
     },
     {
-        label: '我的设置',
+        label: '个人中心',
         key:'/user-info'
     },
 
 ]
+
 export const Schedule = () => {
     const location = useLocation()
+   
     return (
         <>
             <Sider className={styles.siderStyle} >

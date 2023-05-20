@@ -52,7 +52,9 @@ const routes =[
                         element: <ClockIn/>
                     },
                     {   
-                        //这里直接加载子组件
+                        // path:'/home/schedule/user-info',
+                        // element: <ModifyUser/>
+                        // //这里直接加载子组件
                         children:[
                             {
                                 path:'/home/schedule/user-info',
@@ -65,7 +67,7 @@ const routes =[
                            
 
 
-                        ]
+                         ]
                     }
                 ]
             },

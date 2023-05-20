@@ -52,8 +52,7 @@ axios.interceptors.response.use(
  */
 export function get(url, params) {
     return new Promise((resolve, reject) => {
-        axios.get(url, {
-            params: params
+        axios.get(url, {params: params
         })
             .then(res => {
                 resolve(res.data);
@@ -77,6 +76,7 @@ export function post(url, params,isJson) {
         axios.defaults.headers.post['Content-Type'] = 'application/json;charset=UTF-8';
     }
     return new Promise((resolve, reject) => {
+        console.log(axios.defaults.headers);
         axios.post(url, params)
             .then(res => {
                 resolve(res.data);

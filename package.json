@@ -19,9 +19,9 @@
     "axios": "^1.4.0",
     "dayjs": "^1.11.7",
     "echarts": "^5.4.2",
+    "express": "^4.18.2",
     "js-cookie": "^3.0.5",
     "lodash": "^4.17.21",
-    "express": "^4.18.2",
     "prop-types": "^15.8.1",
     "pubsub-js": "^1.9.4",
     "query-string": "^8.1.0",
@@ -30,6 +30,7 @@
     "react-redux": "^8.0.5",
     "react-router-dom": "^6.11.1",
     "redux": "^4.2.1",
+    "redux-thunk": "^2.4.2",
     "reset-css": "^5.0.1"
   },
   "devDependencies": {
