@@ -5,7 +5,7 @@ import {Outlet, useLocation} from 'react-router-dom'
 import SideNavi from '../../../components/SideNavi/SideNavi.jsx'
 import course_style from '../CourseList/courseList.module.scss'
 import {PlusCircleOutlined} from '@ant-design/icons'
-import {post} from '../../../utils/request'
+
 
 const items=[
     {
@@ -22,7 +22,18 @@ const items=[
     },
     {
         label: '个人中心',
-        key:'/user-info'
+        key:'/user-info',
+        children:[
+            {
+                label:'修改个人信息',
+                key:'/user-info'
+            },
+            {
+            label:'修改个人密码',
+            key:'/pwd'
+        }],
+
+
     },
 
 ]
