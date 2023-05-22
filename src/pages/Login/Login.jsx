@@ -40,14 +40,6 @@ export const Login = () => {
         if (userName==='' && password===''){
           message.info('用户名和密码不能为空');
         }
-       if(res.data.status===200){
-        //成功
-        
-       }
-       if(res.data.status===401){
-        //成功
-        alert('登录失败')
-       }
        
     }
 
