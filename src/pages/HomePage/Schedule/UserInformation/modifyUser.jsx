@@ -132,10 +132,10 @@ export const ModifyUser = () => {
               name="photoUrl"
               label="头像地址"
               rules={[{ message: ' ', whitespace: true },
-              {
-                pattern: /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\*\+,;=.]+$/,
-                message: '请输入正确的地址链接'
-              },
+              // {
+              //   pattern: /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\*\+,;=.]+$/,
+              //   message: '请输入正确的地址链接'
+              // },
                 ({ getFieldValue }) => ({
                   validator(_, value) {
                     if (/\.(gif|jpg|jpeg|png|GIF|JPG|PNG)$/.test(getFieldValue('photoUrl'))) {
