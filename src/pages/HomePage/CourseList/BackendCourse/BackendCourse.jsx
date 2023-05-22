@@ -10,7 +10,7 @@ export const BackendCourse = () => {
         getBackCourse:"/api/course/getCourse"
     };
     const getBackCourse =async ()=>{
-        const res = await get(api.getBackCourse,{classification:0})
+        const res = await get(api.getBackCourse,{classification:1})
         if(res){
             setCourseList(res.data);
         }
