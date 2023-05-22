@@ -51,6 +51,7 @@ const routes =[
                         path: '/home/schedule/clock-in',
                         element: <ClockIn/>
                     },
+
                     {
                         path: '/home/schedule/user-info',
                         element: <ModifyUser/>
@@ -60,7 +61,7 @@ const routes =[
                         path: '/home/schedule/pwd',
                         element: <ModifyPwd/>
 
-                    },
+                    }
 
                 ]
             },

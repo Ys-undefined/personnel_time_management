@@ -47,12 +47,12 @@ const api ={
     thisWeek:"/api/userdaily/thisWeekIdletime",
     nextWeek:"/api/userdaily/nextWeekIdletime",
     updateIdle:"/api/userdaily/updateIdletime",
+    updateOne:"/api/userdaily/updateIdletimeSingleClick"
 }
 export const SpareTime = () => {
     const [timeList,setTimeList] =useState(initTimeList(true))
     const getThisWeek = async ()=>{
         const res = await get(api.thisWeek,null)
-        console.log(res.data)
         if (res){
             setTimeList(res.data)
         }
@@ -76,7 +76,7 @@ export const SpareTime = () => {
                 return p
             })
         })
-        const res = await post(api.updateIdle,timeList,true)
+        const res = await post(api.updateOne,period,true)
         if (res){
             setTimeList(temp)
         }

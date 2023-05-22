@@ -21,7 +21,10 @@ const items =[
     {
         label:'分享课表',
         key: '/course-list',
-
+    },
+    {
+    label: "统计信息",
+        key: "/information"
     }
 ];
 
@@ -36,7 +39,7 @@ export const Home = () => {
         setCurrent(e.key);
         navigate("/home"+e.key)
     };
-    
+
     //startTime是向服务器发送请求响应的时间
     // const startTime='1684463874159'
     // const inputTime=parseInt(startTime)+parseInt(29500*1000)//设置每50秒存储的值过期
@@ -47,11 +50,8 @@ export const Home = () => {
     const getUserInfo=async () =>{ {
         const res= await post(api.getUser,null,false)
             if(res){
-                console.log('主页请求成功')
-                console.log(res.data)
                 Cookies.set('photoUrl',res.data.photoUrl)
                 Cookies.set('name',res.data.nickName)
-
             }
     }
 

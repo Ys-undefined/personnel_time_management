@@ -36,10 +36,10 @@ const ReportDisplay= (props)=>{
     }
     const getAllReports= async (type,page)=>{
         if (type==="daily"){
-            const res = await post(api.getDailyReport,{pageNo:page||1,pageSize:10},false)
+            const res = await post(api.getDailyReport,{pageNo:page||1,pageSize:8},false)
             handleRes(res)
         }else {
-            const res = await post(api.getWeeklyReport,{pageNo:page||1,pageSize:10},false)
+            const res = await post(api.getWeeklyReport,{pageNo:page||1,pageSize:8},false)
             handleRes(res)
         }
     }

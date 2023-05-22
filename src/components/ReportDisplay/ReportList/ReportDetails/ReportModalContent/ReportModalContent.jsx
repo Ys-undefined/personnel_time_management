@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import {useState} from 'react'
-import {Form, DatePicker, Input, Radio, Button,Space} from 'antd'
+import {Button, DatePicker, Form, Input, Radio, Space} from 'antd'
 import dayjs from 'dayjs'
 import isSameOrAfter from 'dayjs/plugin/isSameOrAfter'
 import {post} from '../../../../../utils/request.js'
@@ -44,32 +44,42 @@ export const ReportModalContent = (props) => {
     const initRiskInfo = report?report.riskInfo:null
     const initNextWeekPlan=report?report.nextWeekPlan:null
     let getDateValue;
-    const [dates,setDates] = useState(null)
+    const [dates,setDates] = useState([null,null])
     const [value,setValue] = useState(null)
+    const getThisWeekMondayOrFriDay = (isMonday)=>{
+        const today = dayjs()
+        const day = today.day();
+        if (isMonday){
+            return today.subtract(day - 1, "day")
+        }else {
+            return today.subtract(day - 5, "day")
+        }
+    }
+    const rangePresets = [
+        {
+            label:"本周",
+            value:[getThisWeekMondayOrFriDay(true),getThisWeekMondayOrFriDay(false)]
+        },
+    ]
     const disableDate = (current)=>{
-        // if (!dates){
-        //     if (dayjs(current).day()===1 && current > dayjs().endOf('day')){
-        //         return current
-        //     }else if(dayjs(current).day()===5 && current > dayjs().endOf('day')){
-        //         return current
-        //     }
-        //     return current && current > dayjs().endOf('day') && current === dayjs().day(1)
-        // }
-        console.log(dayjs(current).format("MM-DD"))
-        if (dayjs(current).day()!==1){
-            if (dayjs(current).day()!==5){
-                if (dayjs(current).isSameOrAfter(dayjs())){
-                    // console.log(dayjs(current).format("MM-DD"))
-                    return current
-                }
-            }
+        const today = dayjs();
+        const dayOfWeek = current.day();
+        if (dates){
+            const currentSelected = dates[0];
+            return !!(currentSelected && !current.isSame(currentSelected.add(4, 'day'), 'day'));
+        }
+        if (current.isSameOrAfter(today)){
+            return true
+        }
+        if (dayOfWeek!==1 && dayOfWeek !==5){
+            return true
         }
     }
     const onOpenChange =(open)=>{
         if (open){
-            setDates([null,null])
-        }else {
             setDates(null)
+        }else {
+            setDates([null,null])
         }
     }
 
@@ -90,7 +100,9 @@ export const ReportModalContent = (props) => {
                             <RangePicker
                                 disabled={!!report}
                                 disabledDate={disableDate}
-                                onOpenChange={onOpenChange} value={dates||value}
+                                onOpenChange={onOpenChange}
+                                value={dates||value}
+                                presets={rangePresets}
                                 onCalendarChange={(val)=>{
                                     setDates(val)
                                 }}

@@ -14,7 +14,6 @@ export const ModifyUser = () => {
     modifyPwd:'/api/user/updatePwd',
     getCollege:"/api/user/getCollege",
     loadphotoUrl:"/api//user/uploadPhoto"
-    
   }
 
   //请求用户信息
@@ -69,10 +68,9 @@ export const ModifyUser = () => {
     college1()
 
   }, [])
-  
 
 
-  const formRef = React.useRef();
+
 
   const handleChange = () => {
     form.setFieldsValue({
@@ -87,25 +85,22 @@ export const ModifyUser = () => {
         console.log(res)
         //请求成功后还是走一遍获取用户信息的途径
         if(res){
-          getUserInfo()
-
+          await getUserInfo()
         }
 
   };
 
   //清除输入内容
   const onReset = () => {
-    formRef.current?.resetFields();
+    form.resetFields()
   };
 
   return (
 
       <div className={style.info}>
-
         <div className={style.user_form}>
             <h1>修改个人信息</h1>
           <Form form={form}
-            ref={formRef}
             labelCol={{ span: 6 }}
             wrapperCol={{ span: 12 }}
             onFinish={onFinish}
@@ -161,7 +156,7 @@ export const ModifyUser = () => {
             >
               <Select options={college} onChange={handleChange} placeholder="select your college" >
               </Select>
-              
+
             </Form.Item>
 
 
