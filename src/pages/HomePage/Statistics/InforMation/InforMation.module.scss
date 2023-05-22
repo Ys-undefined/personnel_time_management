@@ -13,6 +13,8 @@
         color: #999;
         flex-direction: row;
         height: 12px;
+        justify-content: space-between;
+        display: flex;
     }
     .houreBox{
         padding:10px 0 15px;
@@ -34,18 +36,17 @@
         font-size: 12px;
         color: #999;
         height: 40px;
+        justify-content:space-between;
         .contentleft{
             display: flex;
             height: 20px;
             line-height: 20px;
-            padding: 0 25px 0 0;
             align-items: center;
         }
         .contentright{
             display: flex;
             height: 20px;
             line-height: 24px;
-            padding: 0 0 0 27px;
             align-items: center;
         }
         .green,.red{
@@ -82,7 +83,6 @@
 }
 .chartStyle{
     background-color: white;
-    width: 1000px;
     height: 330px;
     margin: 20px 10%;
     float: left;
@@ -94,6 +94,26 @@
         padding: 20px  20px;
         color: #999;
         font-size: 12px;
+        .week{
+            display: flex;
+            justify-content: space-between;
+            
+        }
+        .select{
+            color: #999;
+            margin-left: 20px;
+        }
+        .select:hover{
+            color: #00a1d6;
+        }
+        .select:active{
+            color: #00a1d6;
+        }
+        .selectafter{
+            color: #00a1d6;
+            margin-left: 20px;
+        }
+        
     }
     .barchartStyle{
         width: 650px;
@@ -108,8 +128,8 @@
 .showStyle{
     width: 250px;
     height: 300px;
+    padding: 16px;
     float: left;
-    padding: 12px;
     .listbox{
         
         .liststyle {
@@ -118,7 +138,6 @@
             color: #929292;
             border-color: rgb(255, 255, 255);
             align-items: center;
-            flex-direction: row;
             .listnumber{
                 height: 16px;
                 width: 16px;
@@ -138,5 +157,11 @@
         margin-bottom: 16px;
     }
 }
+.contentStyle {
+    margin: 0;
+    color: #fff;
+    text-Align:center;
+    background-color: '#364d79';
+  };
 
 
