@@ -1,78 +1,30 @@
-//  import { Col, Row, Statistic,Card, Space ,Divider,Descriptions} from 'antd';
 import style from './information.module.scss';
 import {
   CaretUpOutlined,
   CaretDownOutlined,
   InfoCircleOutlined,
 } from '@ant-design/icons';
-import { Avatar, List, Button } from 'antd';
+import { List } from 'antd';
 import * as echarts from 'echarts';
-import React, { useEffect, useState } from 'react';
-import { get, post } from '../../../../utils/request.js';
-// import DemoArea from '../../../../components/InforMation/Chart.jsx';
-
+import { useEffect, useState, useRef } from 'react';
+import { get } from '../../../../utils/request.js';
 const api = {
   infomation: '/api/getStatisticsInformations',
 };
 export const InforMation = () => {
-  // 请求数据
   const [information, setinformation] = useState([]);
+
   const inforMation = async () => {
     const res = await get(api.infomation, null);
     if (res) {
       setinformation(res.data);
-      console.log(res.data);
     }
   };
   useEffect(() => {
     inforMation();
   }, []);
-  console.log(information.weekNum);
 
-  const [last, setlast] = useState([]);
-  const onClick = () => {
-    setlast({
-      name: '张三',
-      num: 323234,
-    });
-    console.log('1');
-  };
-
-  // 测试数据
-  const data = [
-    {
-      weekYoy: 12,
-      dayRatio: 11,
-      dayup: 0,
-      weekup: 1,
-      workTime: 8910,
-      workTimeWeek: 132,
-      codeSum: 8846,
-      codeWeek: 1423,
-      daysNum: 12,
-      weekNum: 53,
-      codeLoad: ['365', '600', '540', '900', '300'],
-      Ranking: [
-        { name: '张三', num: 323234 },
-        { name: '李四', num: 232234 },
-        { name: '王五', num: 323234 },
-        { name: '王五', num: 323234 },
-        { name: '王五', num: 323234 },
-        { name: '王五', num: 323234 },
-        { name: '王五', num: 323234 },
-      ],
-      lastRanking: [
-        { name: '张', num: 323234 },
-        { name: '李', num: 232234 },
-        { name: '王', num: 323234 },
-        { name: '王', num: 323234 },
-        { name: '王', num: 323234 },
-        { name: '王', num: 323234 },
-        { name: '王', num: 323234 },
-      ],
-    },
-  ];
-  const options = {
+  const options_bar = {
     title: {
       text: '代码量趋势',
       textStyle: {
@@ -83,7 +35,7 @@ export const InforMation = () => {
 
     xAxis: {
       type: 'category',
-      data: ['周一', '周二', '周三', '周四', '周五'],
+      data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
       axisTick: {
         show: false,
       },
@@ -102,19 +54,19 @@ export const InforMation = () => {
     // y轴
     yAxis: {
       type: 'value',
-      interval: 250,
+      splitNumber: 5,
       splitLine: {
         show: true,
         interval: 'modSl',
         lineStyle: {
           color: '#ccc',
-          type: 'dotted',
+          type: 'dashed',
         },
       },
     },
     series: [
       {
-        data: data[0].codeLoad,
+        data: information.codeLoad,
         type: 'bar', // 柱状图
         barWidth: 20,
         color: '#25A3F0',
@@ -137,17 +89,18 @@ export const InforMation = () => {
       confine: true, // 超出的部分不会被遮盖
     },
     grid: {
-      // left: '5%',
-      // right: '5%',
       top: 0,
       bottom: '28%',
+      right: 0,
+      left: 0,
     },
     // x轴
     xAxis: {
       type: 'category',
-      data: ['周一', '周二', '周三', '周四', '周五'],
+      data: ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
       show: false,
       axisTick: {
+        show: false,
         lineStyle: {
           color: '#999',
         },
@@ -191,8 +144,7 @@ export const InforMation = () => {
     },
     series: [
       {
-        data: data[0].codeLoad,
-        // type: 'line' 折线图
+        data: information.codeLoad,
         type: 'line',
         lineStyle: {
           color: '#FFFEFF',
@@ -206,19 +158,23 @@ export const InforMation = () => {
     ],
   };
 
+  const arearef = useRef();
+  const barref = useRef();
+  const chart = () => {
+    const chart_bar = echarts.init(barref.current);
+    chart_bar.setOption(options_bar, true);
+    const chart_area = echarts.init(arearef.current);
+    chart_area.setOption(options_area, true);
+  };
+
   useEffect(() => {
-    const chart = echarts.init(document.getElementById('chart'));
-    chart.setOption(options);
-  }, []);
-  useEffect(() => {
-    const chart = echarts.init(document.getElementById('barchart'));
-    chart.setOption(options_area);
-  }, []);
+    chart();
+  });
 
   return (
     <>
       <div>
-        <div style={{ width: '1263px', height: '160px' }}>
+        <div style={{ display: 'flex' }}>
           <div className={style.divStyle}>
             <div className={style.title}>
               <span style={{ marginRight: 136 }}>本周投入工时</span>
@@ -234,25 +190,33 @@ export const InforMation = () => {
                 <p>周同比</p>
                 <CaretUpOutlined
                   className={style.green}
-                  style={{ display: data[0].weekup == 1 ? 'inline' : 'none' }}
+                  style={{
+                    display: information.weekYoyUp == 1 ? 'inline' : 'none',
+                  }}
                 />
                 <CaretDownOutlined
                   className={style.red}
-                  style={{ display: data[0].weekup == 0 ? 'inline' : 'none' }}
+                  style={{
+                    display: information.weekYoyUp == 0 ? 'inline' : 'none',
+                  }}
                 />
-                <p>20%</p>
+                <p>{information.weekYoy}%</p>
               </div>
               <div className={style.contentright}>
                 <p>日环比</p>
                 <CaretUpOutlined
                   className={style.green}
-                  style={{ display: data[0].dayup == 1 ? 'inline' : 'none' }}
+                  style={{
+                    display: information.dayRatioUp == 1 ? 'inline' : 'none',
+                  }}
                 />
                 <CaretDownOutlined
                   className={style.red}
-                  style={{ display: data[0].dayup == 0 ? 'inline' : 'none' }}
+                  style={{
+                    display: information.dayRatioUp == 0 ? 'inline' : 'none',
+                  }}
                 />
-                <p>20%</p>
+                <p>{information.dayRatio}%</p>
               </div>
             </div>
             <div className={style.bottombox}>
@@ -262,17 +226,18 @@ export const InforMation = () => {
           </div>
           <div className={style.divStyle}>
             <div className={style.title}>
-              <span style={{ marginRight: 170 }}>代码量</span>
+              <span style={{ marginRight: 172 }}>代码量</span>
               <InfoCircleOutlined />
             </div>
             <div className={style.houreBox}>
-              <span className={style.number}>{data[0].workTime}</span>
+              <span className={style.number}>{information.codeSum}</span>
               <span className={style.tips}>行</span>
             </div>
-            <div id="barchart" className={style.areachart}></div>
+            <div className={style.areachart} ref={arearef}></div>
+
             <div className={style.bottombox}>
               <p style={{ marginRight: 10 }}>周代码量</p>
-              <p>{data[0].codeWeek}</p>
+              <p>{information.codeWeek}</p>
             </div>
           </div>
           <div className={style.divStyle}>
@@ -292,14 +257,14 @@ export const InforMation = () => {
             <p> 上周 </p>
           </div>
 
-          <div id="chart" className={style.barchartStyle}></div>
+          <div className={style.barchartStyle} ref={barref}></div>
 
           <div className={style.showStyle}>
             <p className={style.listtitle}>代码排行榜</p>
             <div className={style.listbox}>
               <List
                 itemLayout="horizontal"
-                dataSource={data[0].Ranking}
+                dataSource={information.Ranking1}
                 renderItem={(item, index) => (
                   <List.Item className={style.liststyle}>
                     <li style={{ display: 'flex' }}>
@@ -313,9 +278,9 @@ export const InforMation = () => {
                       >
                         {index + 1}
                       </div>
-                      <p>{item.name}</p>
+                      <p>{item.userName}</p>
                     </li>
-                    <div>{item.num}</div>
+                    <div>{item.sums}</div>
                   </List.Item>
                 )}
               />

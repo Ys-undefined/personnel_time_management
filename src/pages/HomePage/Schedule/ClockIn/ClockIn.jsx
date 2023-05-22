@@ -1,7 +1,6 @@
 import { Table } from 'antd';
-import { React, setState, useState, useEffect } from 'react';
-import { get, post } from '../../../../utils/request.js';
-// import style from '/LastMonth.module.scss';
+import { useState, useEffect } from 'react';
+import { get } from '../../../../utils/request.js';
 const api = {
   infomation: '/api/getClockInfo',
 };
@@ -12,14 +11,13 @@ export const ClockIn = () => {
     const res = await get(api.infomation, null);
     if (res) {
       setclock(res.data);
-      console.log(res.data);
     }
   };
   useEffect(() => {
     clockInfor();
   }, []);
 
-  console.log(clock);
+  // 测试数据
 
   let columns;
   columns = [
@@ -27,11 +25,13 @@ export const ClockIn = () => {
       title: '打卡日期',
       dataIndex: 'clock_data',
       key: 'clock_data',
+      defaultSortOrder: 'ascend',
+      sorter: (a, b) => a.clock_data - b.clock_data,
     },
     {
       title: '打卡时段',
-      dataIndex: 'clock_priod',
-      key: 'clock_priod',
+      dataIndex: 'clock_period',
+      key: 'clock_period',
     },
     {
       title: '有效工时',
@@ -40,16 +40,22 @@ export const ClockIn = () => {
     },
   ];
 
+  const onChange = (sorter) => {
+    sorter;
+  };
+
   return (
     <>
-      <div style={{ margin: 50 }}>
+      <div style={{ margin: 25, backgroundColor: '#FFF' }}>
         <Table
           columns={columns}
           dataSource={clock}
           pagination={false}
           scroll={{
-            y: 240,
+            y: 450,
           }}
+          style={{ padding: 16 }}
+          onChange={onChange}
         />
       </div>
       ;
