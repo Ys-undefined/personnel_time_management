@@ -22,7 +22,7 @@ const items=[
     },
     {
         label: '个人中心',
-        key:'/user-info',
+        key:'/user-in',
         children:[
             {
                 label:'修改个人信息',

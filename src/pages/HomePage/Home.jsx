@@ -60,6 +60,7 @@ export const Home = () => {
     const loginOut=async () =>{
         const res= await post(api.loginOut,null,false)
         if(res){
+            Cookies.remove('token')
             navigate('/ ')
         }
       }
@@ -73,7 +74,7 @@ export const Home = () => {
                         <div className={styles.lastStyle}>
                          <div className='photo'>
                          <Space wrap size={16}>
-                          <Avatar src={<img src={Cookies.get('photoUrl')} />} />
+                          <Avatar src={<img src={Cookies.get('photoUrl')} alt={''}/>} />
                          </Space>
                          </div>   
                            <div className='username'> {Cookies.get('name')} </div> 
