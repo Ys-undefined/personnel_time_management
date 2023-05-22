@@ -1,7 +1,6 @@
 import React from 'react'
-import { NavLink,Outlet } from 'react-router-dom'
 import style from '../UserInformation/UserInformation.module.scss'
-import {Button, Form, Input, message, Select,} from 'antd';
+import {Button, Form, Input, message} from 'antd';
 
 import {post} from "../../../../utils/request.js";
 
@@ -25,25 +24,13 @@ export const ModifyPwd = () => {
             message.info('密码不能为空');
         }
     };
-   
-//     const checkPwd=(rule,newPassword)=>{
-//         if(rule.test(newPassword)){
-//         return Promise.reject('用户名里含有_')
-//     }else{
-//         return Promise.resolve();}
-// }
-      
 
     return (
 
-     <div >   
-      <div><Outlet/> </div>
-      <div className={style.navbar}>
-      <NavLink to='/home/schedule/user-info'>修改个人信息</NavLink>
-      <NavLink to='/home/schedule/user-info/pwd'>修改密码</NavLink>
-      </div>
+     <div className={style.info} >
+
        <div className={style.pwd_form}>
-      
+               <h1>修改密码</h1>
             <Form
                 labelCol={{ span: 4 }}
                 wrapperCol={{ span: 12 }}

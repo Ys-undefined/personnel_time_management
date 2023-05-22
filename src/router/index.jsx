@@ -51,21 +51,18 @@ const routes =[
                         path: '/home/schedule/clock-in',
                         element: <ClockIn/>
                     },
-                    {   
-                        // path:'/home/schedule/user-info',
-                        // element: <ModifyUser/>
-                        // //这里直接加载子组件
-                        children:[
-                            {
-                                path:'/home/schedule/user-info',
-                                element: <ModifyUser/>
-                            },
-                            {
-                                path:'/home/schedule/user-info/pwd',
-                                element: <ModifyPwd/>
-                            }
-                         ]
+
+                    {
+                        path: '/home/schedule/user-info',
+                        element: <ModifyUser/>
+                    },
+
+                    {
+                        path: '/home/schedule/pwd',
+                        element: <ModifyPwd/>
+
                     }
+
                 ]
             },
             {
@@ -108,7 +105,7 @@ const routes =[
                     }
 
                 ]
-            },
+            }
         ]
     },
 

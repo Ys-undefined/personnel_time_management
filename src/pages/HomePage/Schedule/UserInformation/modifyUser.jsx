@@ -1,5 +1,5 @@
-import { NavLink, Outlet } from 'react-router-dom'
-import {Button, Form, Input, Select, } from 'antd';
+import React from 'react'
+import {Button, Form, Input, Select} from 'antd';
 import {post,get} from '../../../../utils/request'
 import { useState,useEffect } from 'react';
 import style from '../UserInformation/UserInformation.module.scss'
@@ -29,13 +29,7 @@ export const ModifyUser = () => {
       'collegeName':res.data.collegeName
     })
 }
-  //上传头像
-  const updatephotoUrl=async () => {
-    const res = await post(api.loadphotoUrl, photoUrl, false)
-    if(res){
-      console.log('上传头像成功')
-    }
-  }
+
   //获取学院信息
   const [college,setCollege] = useState([])
 
@@ -68,11 +62,11 @@ export const ModifyUser = () => {
         'major':res.data.major,
         'collegeName':res.data.collegeName
       })
+        // updatephotoUrl(res.data.photoUrl)
     })
     //请求学院信息
     college1()
-    //请求用户头像
-    updatephotoUrl()
+
   }, [])
 
 
@@ -101,17 +95,11 @@ export const ModifyUser = () => {
     form.resetFields()
   };
 
-
   return (
 
-    <div className={style.info}>
-      <div >
-        <div><Outlet /> </div>
-        <div className={style.navbar}>
-          <NavLink to='/home/schedule/user-info'>修改个人信息</NavLink>
-          <NavLink to='/home/schedule/user-info/pwd'>修改密码</NavLink>
-        </div>
+      <div className={style.info}>
         <div className={style.user_form}>
+            <h1>修改个人信息</h1>
           <Form form={form}
             labelCol={{ span: 6 }}
             wrapperCol={{ span: 12 }}
@@ -145,9 +133,18 @@ export const ModifyUser = () => {
               label="头像地址"
               rules={[{ message: ' ', whitespace: true },
               {
-                // pattern: /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\*\+,;=.]+$/,
-                // message: '请输入正确的地址链接'
-              }]}
+                pattern: /^(?:http(s)?:\/\/)?[\w.-]+(?:\.[\w\.-]+)+[\w\-\._~:/?#[\]@!\$&'\*\+,;=.]+$/,
+                message: '请输入正确的地址链接'
+              },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (/\.(gif|jpg|jpeg|png|GIF|JPG|PNG)$/.test(getFieldValue('photoUrl'))) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error('gif|jpg|jpeg|png|GIF|JPG|PNG 格式文件'));
+                  },
+                })
+              ]}
 
             >
               <Input />
@@ -207,8 +204,8 @@ export const ModifyUser = () => {
 
           </Form>
         </div>
-      </div>
-    </div>
+      </div >
+
   )
 }
 
