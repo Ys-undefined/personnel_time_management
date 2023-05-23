@@ -1,5 +1,5 @@
 import React from 'react'
-import {Button, Form, Input, Select} from 'antd';
+import {Button, Form, Input, message, Select} from 'antd';
 import {post,get} from '../../../../utils/request'
 import { useState,useEffect } from 'react';
 import style from '../UserInformation/UserInformation.module.scss'
@@ -82,10 +82,14 @@ export const ModifyUser = () => {
         const {collegeId,collegeName,level,major,nickName,photoUrl} = values
         console.log(values)
         const res= await post(api.modifyUser, values, true)
+
         console.log(res)
         //请求成功后还是走一遍获取用户信息的途径
         if(res){
+          message.info('修改信息成功')
           await getUserInfo()
+        }else {
+          message.info('修改信息失败')
         }
 
   };
