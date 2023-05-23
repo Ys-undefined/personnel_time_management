@@ -61,6 +61,8 @@ export const Home = () => {
         const res= await post(api.loginOut,null,false)
         if(res){
             Cookies.remove('token')
+            Cookies.remove('name')
+            Cookies.remove('photoUrl')
             navigate('/ ')
         }
       }
