@@ -29,24 +29,20 @@ const items =[
 ];
 
 export const Home = () => {
+    const navigate = useNavigate();
     const [current, setCurrent] = useState('/schedule');
     const location = useLocation();
+
     useEffect(()=>{
         setCurrent("/"+location.pathname.split("/")[2])
     },[])
-    const navigate = useNavigate();
+
     const onClick = (e) => {
         setCurrent(e.key);
         navigate("/home"+e.key)
     };
 
-    //startTime是向服务器发送请求响应的时间
-    // const startTime='1684463874159'
-    // const inputTime=parseInt(startTime)+parseInt(29500*1000)//设置每50秒存储的值过期
-    // const nowTime=+new Date().getTime()
 
-    // const times=(inputTime-nowTime)/1000
-    // console.log(times)
     const getUserInfo=async () =>{ {
         const res= await post(api.getUser,null,false)
             if(res){
