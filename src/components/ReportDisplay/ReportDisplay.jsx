@@ -22,32 +22,49 @@ const ReportDisplay= (props)=>{
     const [reports,setReports] = useState([])
     // const [url] = useState(props.url)
     const [total,setTotal]=useState(0)
+    const [curPage,setCurPage]=useState(1)
+
     const type = props.type
     const handleRes = (res)=>{
         if (res){
             setTotal(res.data.total)
             const {data: {records}}=res
-            const curReports=records.map(r=>{
+            return records.map(r => {
                 r.isBalance = r.isBalance === "1";
                 return r
             })
-            setReports(curReports)
         }
     }
+    let startTime=null;
+    let endTime = null;
     const getAllReports= async (type,page)=>{
         if (type==="daily"){
             const res = await post(api.getDailyReport,{pageNo:page||1,pageSize:8},false)
-            handleRes(res)
+            if (startTime && endTime){
+                await handleFilterReports(startTime,endTime,handleRes(res))
+            }else {
+                setReports(handleRes(res))
+            }
         }else {
             const res = await post(api.getWeeklyReport,{pageNo:page||1,pageSize:8},false)
-            handleRes(res)
+            if (startTime && endTime){
+                await handleFilterReports(startTime,endTime,handleRes(res))
+            }else {
+                setReports(handleRes(res))
+            }
         }
     }
+
     useEffect(()=>{
         getAllReports(type).then()
         //订阅消息
         PubSub.subscribe("update_report",()=>{
             getAllReports(type).then()
+        })
+
+        PubSub.subscribe("saveDateRange",(msg,time)=>{
+            startTime=time.start;
+            endTime=time.end;
         })
     },[])
 
@@ -55,21 +72,29 @@ const ReportDisplay= (props)=>{
         await getAllReports(type,page)
     }
     const reset = async ()=>{
-       await getAllReports(type)
+        startTime=null;
+        endTime=null;
+        await getAllReports(type)
+        setCurPage(1)
     }
-    function handleFilterReports(start,end){
+    async function handleFilterReports(start,end,res){
         const startDate = dayjs(start)
         const endDate = dayjs(end)
-        let res;
         switch (type){
             case "daily":
-                res=reports.filter((report)=>{
+                if (!res){
+                    res = handleRes(await post(api.getDailyReport,{pageNo:curPage,pageSize:8},false))
+                }
+                res=res.filter((report)=>{
                     if(dayjs(report.reportTime).isBetween(startDate,endDate,'date','[]'))
                         return report
                 })
                 break;
             case "weekly":
-                res=reports.filter(report=>{
+                if (!res){
+                    res = handleRes(await post(api.getWeeklyReport,{pageNo: curPage,pageSize:8},false))
+                }
+                res=res.filter(report=>{
                     if (dayjs(report.startTime).isBetween(startDate,endDate,'date','[]') && dayjs(report.endTime).isBetween(startDate,endDate,'date','[]'))
                         return report
                 })
@@ -78,6 +103,9 @@ const ReportDisplay= (props)=>{
                 res=[]
         }
         setReports(res)
+    }
+    function getPage(page){
+        setCurPage(page)
     }
     return (
         <>
@@ -88,7 +116,7 @@ const ReportDisplay= (props)=>{
                 <ReportList reports={reports} type={props.type} ></ReportList>
             </Content>
             <Footer className={styles.footerStyle}>
-                <ReportPagination total={total} changePage={handleGetReports}></ReportPagination>
+                <ReportPagination total={total} changePage={handleGetReports} getPage={getPage} curPage={curPage}></ReportPagination>
             </Footer>
         </>
     )

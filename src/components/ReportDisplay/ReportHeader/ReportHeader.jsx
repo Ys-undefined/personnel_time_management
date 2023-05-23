@@ -1,6 +1,7 @@
 import {Button, DatePicker, Form} from 'antd'
 import dayjs from 'dayjs'
 import PropTypes from 'prop-types'
+import PubSub from 'pubsub-js'
 
 const {RangePicker} = DatePicker
 
@@ -25,8 +26,13 @@ const ReportHeader=(props)=>{
             ...fieldsValue,
             'date-range-picker':[rangeValue[0].format('YYYY-MM-DD'), rangeValue[1].format('YYYY-MM-DD')]
         }
-        filterReportByDate(values['date-range-picker'][0],values['date-range-picker'][1])
+        filterReportByDate(values['date-range-picker'][0],values['date-range-picker'][1],false)
+        PubSub.publish("saveDateRange",{
+            start:values['date-range-picker'][0],
+            end:values['date-range-picker'][1]
+        })
     }
+
     return (
         <>
             <Form

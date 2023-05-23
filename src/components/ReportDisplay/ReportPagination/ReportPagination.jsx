@@ -1,15 +1,20 @@
 import {Pagination} from 'antd'
 import PropTypes from 'prop-types'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 
 
 const ReportPagination=(props)=> {
     const total = props.total
     const changePage = props.changePage
-    const [current,setCurrent] = useState(1)
+    const getPage = props.getPage
+    const [current,setCurrent] = useState(props.curPage)
+    useEffect(()=>{
+        setCurrent(props.curPage)
+    },[props.curPage])
     function onChange(page){
         setCurrent(page)
         changePage(page);
+        getPage(page)
     }
     return (
         <>
@@ -29,5 +34,7 @@ const ReportPagination=(props)=> {
 ReportPagination.propTypes={
     total:PropTypes.number.isRequired,
     changePage:PropTypes.func.isRequired,
+    getPage:PropTypes.func.isRequired,
+    curPage:PropTypes.number.isRequired
 }
 export default ReportPagination
