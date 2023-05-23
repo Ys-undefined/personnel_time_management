@@ -9,7 +9,6 @@ import {DailyReport} from '../pages/HomePage/Report/DailyReport/DailyReport'
 import {WeeklyReport} from '../pages/HomePage/Report/WeeklyReport/WeeklyReport'
 import { InforMation } from '../pages/HomePage/Statistics/InforMation/Information'
 
-
 //分享课程
 import {CourseList} from '../pages/HomePage/CourseList/CourseList.jsx'
 import { BackendCourse} from '../pages/HomePage/CourseList/BackendCourse/BackendCourse'
@@ -21,45 +20,53 @@ import {ModifyPwd} from '../pages/HomePage/Schedule/UserInformation/ModifyPwd'
 import {MyCourse} from "../pages/HomePage/Schedule/MyCourse/MyCourse";
 
 
+
 const routes =[
     {
         path:'',
-        element:<Login/>,
+        element: <Login/>,
+
     },
     {
         path: "/home",
-        element: <Navigate to="/home/schedule/spare-time"/>
-          
+        element: <Navigate to="/home/schedule/spare-time"/>,
+
     },
     {
         path: '/home',
         element:<Home/>,
+
         children:[
             {
                 path:"/home/schedule",
                 element:<Schedule/>,
                 children:[
                     {
-                        path:"/home/schedule/spare-time",
-                        element:<SpareTime/>
+                        path: "/home/schedule/spare-time",
+                        element: <SpareTime/>
                     },
+
                     {
                         path:"/home/schedule/my-course",
-                        element:<MyCourse/>
+                        element:<MyCourse/>,
+
                     },
                     {
                         path: '/home/schedule/clock-in',
-                        element: <ClockIn/>
+                        element: <ClockIn/>,
+
                     },
 
                     {
                         path: '/home/schedule/user-info',
-                        element: <ModifyUser/>
+                        element: <ModifyUser/>,
+
                     },
 
                     {
                         path: '/home/schedule/pwd',
-                        element: <ModifyPwd/>
+                        element: <ModifyPwd/>,
+
 
                     }
 
@@ -68,10 +75,12 @@ const routes =[
             {
                 path: "/home/record",
                 element:<Report/>,
+
                 children: [
                     {
                         path:'/home/record/daily-report',
-                        element: <DailyReport/>
+                        element: <DailyReport/>,
+
                     },
                     {
                         path:'/home/record/weekly-report',

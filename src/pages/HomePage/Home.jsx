@@ -3,8 +3,11 @@ const { Header } = Layout;
 import styles from './home.module.scss'
 import {post} from '../../utils/request.js'
 import Cookies from 'js-cookie';
-import {useEffect, useState} from 'react'
-import {Outlet, useLocation, useNavigate} from 'react-router-dom'
+import {useEffect, useState,props} from 'react'
+import {Outlet, useLocation, useNavigate,matchRoutes,Navigate} from 'react-router-dom'
+import router from '../../router/index.jsx'
+
+
 const api= {
     getUser:"/api/user/getUser",
     loginOut:"/api/user/logout"
@@ -29,24 +32,20 @@ const items =[
 ];
 
 export const Home = () => {
+    const navigate = useNavigate();
     const [current, setCurrent] = useState('/schedule');
     const location = useLocation();
+
     useEffect(()=>{
         setCurrent("/"+location.pathname.split("/")[2])
     },[])
-    const navigate = useNavigate();
+
     const onClick = (e) => {
         setCurrent(e.key);
         navigate("/home"+e.key)
     };
 
-    //startTime是向服务器发送请求响应的时间
-    // const startTime='1684463874159'
-    // const inputTime=parseInt(startTime)+parseInt(29500*1000)//设置每50秒存储的值过期
-    // const nowTime=+new Date().getTime()
 
-    // const times=(inputTime-nowTime)/1000
-    // console.log(times)
     const getUserInfo=async () =>{ {
         const res= await post(api.getUser,null,false)
             if(res){
@@ -61,6 +60,7 @@ export const Home = () => {
         const res= await post(api.loginOut,null,false)
         if(res){
             Cookies.remove('token')
+            console.log('退出登录',Cookies.get('token'))
             navigate('/ ')
         }
       }

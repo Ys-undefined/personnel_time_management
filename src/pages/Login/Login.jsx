@@ -5,8 +5,6 @@ import {LockOutlined,UserOutlined} from '@ant-design/icons'
 import Cookies from 'js-cookie'
 import {post} from '../../utils/request.js'
 
-import Axios from 'axios'
-
 export const Login = () => {
   const api={
     login:"http://123.56.27.142:8888/user/login"
@@ -32,13 +30,14 @@ export const Login = () => {
             Cookies.set('token',user.token,{expires:1,path:''})
             console.log('登录成功',user.userName);
             navigate("/home")
+            message.info('登录成功');
             // }  
            
         }
         
         //提示账号密码为空
-        if (userName==='' && password===''){
-          message.info('用户名和密码不能为空');
+        if (userName==='' || password===''){
+          message.info('用户名或密码不能为空');
         }
        
     }
