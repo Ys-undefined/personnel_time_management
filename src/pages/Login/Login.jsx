@@ -5,21 +5,18 @@ import {LockOutlined,UserOutlined} from '@ant-design/icons'
 import Cookies from 'js-cookie'
 import {post} from '../../utils/request.js'
 
-import Axios from 'axios'
 
 export const Login = () => {
   const api={
     login:"http://123.56.27.142:8888/user/login"
   }
    const navigate = useNavigate()
-    //跳转到后台
-    function login(){
-        navigate("/home")
-    }
+
 
   const [form] = Form.useForm();
   form.setFieldValue({
     userName:'123'})
+
 
     //该事件是为了收集后台数据
     const onFinish=async(values)=>{
@@ -29,7 +26,7 @@ export const Login = () => {
         if (res){
             const user=res.data
             console.log(user)
-            Cookies.set('token',user.token,{expires:1,path:''})
+            Cookies.set('token',user.token,{expires:1,path:'self'})
             console.log('登录成功',user.userName);
             navigate("/home")
             // }  
@@ -54,7 +51,7 @@ export const Login = () => {
     return (
     <div className={style.login}>
       <div className={style.login_left}>
-        <img className={style.login_img} src='../src/assets/login.png'></img>
+        <img className={style.login_img} src='../src/assets/login.png' alt={"loginPage"}></img>
       </div>
      
         <div className={style.login_form}>
