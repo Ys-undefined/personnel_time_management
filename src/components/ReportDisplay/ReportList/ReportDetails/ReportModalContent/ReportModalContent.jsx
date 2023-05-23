@@ -96,7 +96,7 @@ export const ReportModalContent = (props) => {
             }
              break;
         case "weekly":
-            datePicker = <Form.Item name={"time"} label="周报时间" {...rangeConfig} initialValue={[initDate.startTime,initDate.endTime]}>
+            datePicker = <Form.Item name={"time"} rules={[{required:true,message:"必填"}]} label="周报时间" {...rangeConfig} initialValue={[initDate.startTime,initDate.endTime]}>
                             <RangePicker
                                 disabled={!!report}
                                 disabledDate={disableDate}
@@ -112,7 +112,7 @@ export const ReportModalContent = (props) => {
                                 changeOnBlur
                             />
                          </Form.Item>
-            nextWeekPlan= <Form.Item name={"nextWeekPlan"} label="下周计划内容" initialValue={initNextWeekPlan} >
+            nextWeekPlan= <Form.Item name={"nextWeekPlan"} rules={[{required:true,message:"必填"}]} label="下周计划内容" initialValue={initNextWeekPlan} >
                              <Input.TextArea autoSize={{minRows:5,maxRows:10}}/>
                           </Form.Item>;
             getDateValue=(dateValue)=>{
@@ -120,7 +120,7 @@ export const ReportModalContent = (props) => {
             }
             break;
     }
-    content = <Form.Item name={"content"} label="完成内容描述" initialValue={initContent} >
+    content = <Form.Item name={"content"} rules={[{required:true,message:"必填"}]} label="完成内容描述" initialValue={initContent} >
                  <Input.TextArea autoSize={{minRows:5,maxRows:10}}/>
               </Form.Item>;
     isBalance = <Form.Item label="是否有延迟" name={"isBalance"} initialValue={initIsBalance}>
@@ -129,7 +129,7 @@ export const ReportModalContent = (props) => {
                         <Radio value="no"> 否 </Radio>
                     </Radio.Group>
                 </Form.Item>
-    riskInfo =  <Form.Item name={"riskInfo"} label="风险内容描述" initialValue={initRiskInfo} >
+    riskInfo =  <Form.Item rules={[{required:true,message:"必填"}]} name={"riskInfo"} label="风险内容描述" initialValue={initRiskInfo} >
                     <Input.TextArea autoSize={{minRows:3,maxRows:6}}/>
                 </Form.Item>;
 

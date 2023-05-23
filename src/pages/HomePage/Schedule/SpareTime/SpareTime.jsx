@@ -14,7 +14,6 @@ function initTimeList(isCurWeek){
         let day = {
             id: index + 1,
             date: curDay.format("YYYY-MM-DD"),
-            // time: `${preTime.format("H:00")}-${curTimdebouncee.format("H:00")}`,
             idle: preTime.hour() >= 19
         }
         if ((index + 1) % 9 === 0) {

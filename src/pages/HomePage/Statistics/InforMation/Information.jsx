@@ -11,6 +11,7 @@ import { get } from '../../../../utils/request.js';
 const api = {
   infomation: '/api/getStatisticsInformations',
 };
+
 export const InforMation = () => {
   const [information, setinformation] = useState([]);
 
@@ -170,6 +171,29 @@ export const InforMation = () => {
   useEffect(() => {
     chart();
   });
+  const thisweek = () => {
+    let thisweek = document.getElementById('thisweek');
+    thisweek.style.display = 'inline';
+    let lastweek = document.getElementById('lastweek');
+    lastweek.style.display = 'none';
+
+    let lastweekbox = document.getElementById('lastweekbox');
+    let thisweekbox = document.getElementById('thisweekbox');
+    thisweekbox.className = style.selectafter;
+    lastweekbox.className = style.select;
+  };
+
+  const lastweek = () => {
+    let thisweek = document.getElementById('thisweek');
+    thisweek.style.display = 'none';
+    let lastweek = document.getElementById('lastweek');
+    lastweek.style.display = 'inline';
+
+    let lastweekbox = document.getElementById('lastweekbox');
+    let thisweekbox = document.getElementById('thisweekbox');
+    lastweekbox.className = style.selectafter;
+    thisweekbox.className = style.select;
+  };
 
   return (
     <>
@@ -177,7 +201,7 @@ export const InforMation = () => {
         <div style={{ display: 'flex' }}>
           <div className={style.divStyle}>
             <div className={style.title}>
-              <span style={{ marginRight: 136 }}>本周投入工时</span>
+              <span>本周投入工时</span>
               <InfoCircleOutlined />
             </div>
 
@@ -226,7 +250,7 @@ export const InforMation = () => {
           </div>
           <div className={style.divStyle}>
             <div className={style.title}>
-              <span style={{ marginRight: 172 }}>代码量</span>
+              <span>代码量</span>
               <InfoCircleOutlined />
             </div>
             <div className={style.houreBox}>
@@ -253,15 +277,26 @@ export const InforMation = () => {
         <div className={style.chartStyle}>
           <div className={style.titleStyle}>
             <p style={{ marginRight: 800 }}>代码量</p>
-            <p style={{ marginRight: 20 }}>本周</p>
-            <p> 上周 </p>
+            <div className={style.week}>
+              <div
+                id="thisweekbox"
+                onClick={thisweek}
+                className={style.selectafter}
+              >
+                本周
+              </div>
+              <div id="lastweekbox" onClick={lastweek} className={style.select}>
+                上周
+              </div>
+            </div>
           </div>
 
           <div className={style.barchartStyle} ref={barref}></div>
 
           <div className={style.showStyle}>
             <p className={style.listtitle}>代码排行榜</p>
-            <div className={style.listbox}>
+
+            <div id="thisweek" className={style.listbox}>
               <List
                 itemLayout="horizontal"
                 dataSource={information.Ranking1}
@@ -280,6 +315,33 @@ export const InforMation = () => {
                       </div>
                       <p>{item.userName}</p>
                     </li>
+                    <div>{item.sums}</div>
+                  </List.Item>
+                )}
+              />
+            </div>
+            <div
+              id="lastweek"
+              className={style.listbox}
+              style={{ display: 'none' }}
+            >
+              <List
+                itemLayout="horizontal"
+                dataSource={information.Ranking0}
+                renderItem={(item, index) => (
+                  <List.Item className={style.liststyle}>
+                    <div
+                      key={index}
+                      className={style.listnumber}
+                      style={{
+                        backgroundColor: index < 3 ? '#000' : '#eeeaea',
+                        color: index < 3 ? '#FFF' : '#000',
+                      }}
+                    >
+                      <p style={{ marginRight: 20 }}>{index + 1}</p>
+                    </div>
+                    <div style={{ width: '100%' }}>{item.userName}</div>
+
                     <div>{item.sums}</div>
                   </List.Item>
                 )}
