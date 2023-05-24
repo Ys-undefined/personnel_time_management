@@ -1,11 +1,17 @@
 .whole{
-  width: 100%;
-  height: 100%;
+  max-width: 1620px;
+  height: 850px;
   display: flex;
   justify-content: center;
   align-items: center;
   background-color: #fff;
   flex-direction: column;
+  .header{
+    display: flex;
+    line-height: 0;
+    width: 250px;
+    margin:0 auto;
+  }
   .title{
     display: flex;
     width: 50%;
@@ -32,6 +38,7 @@
   }
   .week{
     width: 50%;
+    margin:0 auto;
     display: flex;
     justify-content: center;
     .day{

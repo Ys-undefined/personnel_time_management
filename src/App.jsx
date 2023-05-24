@@ -1,8 +1,9 @@
-import {useLocation, useNavigate, useRoutes} from 'react-router-dom'
+import {Route, Routes, useLocation, useNavigate, useRoutes} from 'react-router-dom'
 import router from './router/index.jsx'
 import Cookies from 'js-cookie'
 import {message} from 'antd'
 import {useEffect} from 'react'
+import {NotFound} from './pages/NotFound/NotFound.jsx'
 
 function ToLogin(){
     const navigate = useNavigate()
@@ -37,6 +38,9 @@ function App(){
     return (
         <>
             <BeforeRouterEnter/>
+            <Routes>
+                <Route path={"*"} element={<NotFound/>}></Route>
+            </Routes>
         </>
     )
 }

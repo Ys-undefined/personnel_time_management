@@ -114,23 +114,25 @@ export const SpareTime = () => {
     return (
         <>
             <div className={styles.whole}>
-                <Radio.Group onChange={changeWeek} defaultValue={1}>
-                    <Space direction={'horizontal'}>
-                        <Radio value={1}>本周</Radio>
-                        <Radio value={2}>下周</Radio>
-                    </Space>
-                    <Space direction={'horizontal'}>
-                        <CheckableTag
-                                      className={styles.period}
-                                      checked={true}
-                        >空闲</CheckableTag>
-                        <CheckableTag
-                            className={styles.period}
-                            checked={false}
-                            style={{backgroundColor:"#ebdbc5"}}
-                        >忙碌</CheckableTag>
-                    </Space>
-                </Radio.Group>
+                <div className={styles.header}>
+                    <Radio.Group onChange={changeWeek} defaultValue={1}>
+                        <Space direction={'horizontal'}>
+                            <Radio value={1}>本周</Radio>
+                            <Radio value={2}>下周</Radio>
+                        </Space>
+                        <Space direction={'horizontal'}>
+                            <CheckableTag
+                                className={styles.period}
+                                checked={true}
+                            >空闲</CheckableTag>
+                            <CheckableTag
+                                className={styles.period}
+                                checked={false}
+                                style={{backgroundColor:"#ebdbc5"}}
+                            >忙碌</CheckableTag>
+                        </Space>
+                    </Radio.Group>
+                </div>
                 <div className={styles.title}>
                     {
                         timeList.map((d,index)=>{
