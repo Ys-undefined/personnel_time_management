@@ -38,9 +38,6 @@ function App(){
     return (
         <>
             <BeforeRouterEnter/>
-            <Routes>
-                <Route path={"*"} element={<NotFound/>}></Route>
-            </Routes>
         </>
     )
 }

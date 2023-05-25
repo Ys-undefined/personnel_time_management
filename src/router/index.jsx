@@ -18,6 +18,7 @@ import { TestCourse } from '../pages/HomePage/CourseList/TestCourse/TestCourse'
 import {ModifyUser} from '../pages/HomePage/Schedule/UserInformation/ModifyUser'
 import {ModifyPwd} from '../pages/HomePage/Schedule/UserInformation/ModifyPwd'
 import {MyCourse} from "../pages/HomePage/Schedule/MyCourse/MyCourse";
+import {NotFound} from '../pages/NotFound/NotFound'
 
 
 
@@ -117,7 +118,10 @@ const routes =[
             }
         ]
     },
-
+    {
+        path:"*",
+        element: <NotFound/>
+    },
 ]
 
 export default routes
